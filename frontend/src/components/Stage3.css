@@ -1,0 +1,136 @@
+/* Stage 3: The Arbiter's Synthesis - Minimalist Futuristic */
+
+:root {
+  --primary-cyan: #00B8D4;
+}
+
+.stage3 {
+  margin: 32px 0;
+  padding: 24px;
+  background: #1A1F26;
+  border-radius: 8px;
+  border: 1px solid #00B8D4;
+}
+
+.stage-title {
+  margin: 0 0 24px 0;
+  color: #00B8D4;
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
+  text-align: left;
+}
+
+.synthesis-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2A3038;
+}
+
+.synthesis-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  background: #1E2329;
+  margin-right: 12px;
+  font-size: 1.25em;
+  border: 1px solid #00B8D4;
+}
+
+.synthesis-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25em;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.synthesis-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75em;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-top: 2px;
+}
+
+.synthesis-content {
+  font-size: 0.9375em;
+  line-height: 1.6;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.synthesis-content p {
+  margin-bottom: 16px;
+}
+
+.synthesis-content strong {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.synthesis-content ul,
+.synthesis-content ol {
+  margin: 16px 0 16px 24px;
+}
+
+.synthesis-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.synthesis-content h3 {
+  font-family: 'Inter', sans-serif;
+  color: #FFFFFF;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-size: 1.125em;
+  font-weight: 600;
+}
+
+.markdown-content {
+  line-height: 1.6;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  font-family: 'Inter', sans-serif;
+  color: #FFFFFF;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.markdown-content code {
+  background: #1E2329;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.875em;
+  color: #00B8D4;
+}
+
+.markdown-content pre {
+  background: #1E2329;
+  color: #FFFFFF;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid #2A3038;
+}
+
+.markdown-content pre code {
+  background: transparent;
+  padding: 0;
+  color: #FFFFFF;
+}

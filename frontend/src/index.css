@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Minimalist Futuristic Palette */
+  --primary-cyan: #00B8D4;
+  --atlas: #8B95A5;      /* Neutral gray-blue */
+  --cipher: #00B8D4;     /* Cyan accent */
+  --eliza: #00B8D4;      /* Cyan accent */
+  --seer: #6B7280;       /* Muted gray */
+  --ozymandias: #FFFFFF; /* Pure white */
+  
+  /* Background & Surface */
+  --bg-primary: #0F1419;   /* Very dark blue-black */
+  --bg-secondary: #1A1F26; /* Slightly lighter */
+  --surface: #1E2329;      /* Card surface */
+  --border: #2A3038;       /* Subtle borders */
+  
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  
+  /* Typography */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* Global markdown styling */
+.markdown-content {
+  padding: 12px;
+  color: var(--text-primary);
+}
+
+.markdown-content p {
+  margin: 0 0 12px 0;
+}
+
+.markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin: 16px 0 8px 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.markdown-content h1:first-child,
+.markdown-content h2:first-child,
+.markdown-content h3:first-child,
+.markdown-content h4:first-child,
+.markdown-content h5:first-child,
+.markdown-content h6:first-child {
+  margin-top: 0;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0 0 12px 0;
+  padding-left: 24px;
+}
+
+.markdown-content li {
+  margin: 4px 0;
+}
+
+.markdown-content pre {
+  background: var(--surface);
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0 0 12px 0;
+  border: 1px solid var(--border);
+}
+
+.markdown-content code {
+  background: var(--surface);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 0.9em;
+  color: var(--primary-cyan);
+}
+
+.markdown-content pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-body);
+}
+
+.markdown-content blockquote {
+  margin: 0 0 12px 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--primary-cyan);
+  color: var(--text-secondary);
+}

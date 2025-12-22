@@ -1,0 +1,113 @@
+/* Stage 2: Ranked Council Responses - Minimalist Futuristic */
+
+:root {
+  --primary-cyan: #00B8D4;
+}
+
+.stage {
+  margin: 24px 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+}
+
+.stage-title {
+  margin: 0 0 24px 0;
+  color: #00B8D4;
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
+  text-align: left;
+}
+
+.stage2 {
+  background: transparent;
+}
+
+.ranking-item {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 2px solid #00B8D4;
+  background: #1A1F26;
+  border: 1px solid #2A3038;
+  border-left: 2px solid #00B8D4;
+  transition: all 0.2s ease;
+}
+
+.ranking-item:hover {
+  background: #1E2329;
+  border-color: #00B8D4;
+}
+
+.ranking-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2A3038;
+}
+
+.ranking-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  margin-right: 12px;
+  font-size: 0.875em;
+  border: 1px solid #2A3038;
+  background: #1E2329;
+}
+
+.ranking-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.ranking-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75em;
+  color: #6B7280;
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ranking-content {
+  font-size: 0.9375em;
+  line-height: 1.6;
+  color: #FFFFFF;
+}
+
+.ranking-list {
+  margin-top: 16px;
+  padding: 16px;
+  background: #1E2329;
+  border-radius: 6px;
+  border: 1px solid #2A3038;
+}
+
+.ranking-list h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1em;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.ranking-list ol {
+  margin-left: 24px;
+  color: #FFFFFF;
+}
+
+.ranking-list li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
