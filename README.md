@@ -1,6 +1,4 @@
-# Prism
-
-![Prism Header](header.png)
+# Custom LLM Council
 
 ## Overview
 
