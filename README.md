@@ -2,7 +2,7 @@
 
 ## Overview
 
-Prism transforms how you interact with AI by harnessing the collective intelligence of multiple Large Language Models. Rather than querying a single LLM provider (OpenAI GPT, Google Gemini, Anthropic Claude, xAI Grok, etc.), Prism lets you assemble your own "Pantheon" of AI models to collaborate on answering your questions.
+Custom LLM Council transforms how you interact with AI by harnessing the collective intelligence of multiple Large Language Models. Rather than querying a single LLM provider (OpenAI GPT, Google Gemini, Anthropic Claude, xAI Grok, etc.), This custom council lets you assemble your own "Pantheon" of AI models to collaborate on answering your questions.
 
 This local web application provides a ChatGPT-like interface that uses OpenRouter to distribute your query across multiple LLMs. The models then engage in a peer review process, critically evaluating each other's responses before a designated Chairman LLM synthesizes their insights into a comprehensive final answer.
 
@@ -17,7 +17,7 @@ Each LLM receives the responses from all other models in the Pantheon. To ensure
 ### Stage 3: Final Synthesis
 The designated Chairman model reviews all original responses along with the peer evaluations. Drawing from this collective intelligence, the Chairman compiles a refined, comprehensive answer that represents the best insights from your entire Pantheon of AI models.
 
-## Why Prism?
+## Why Custom LLM Council?
 
 - **Diverse Perspectives**: Leverage the unique strengths of multiple AI models
 - **Quality Control**: Peer review process helps identify the most accurate and insightful responses
