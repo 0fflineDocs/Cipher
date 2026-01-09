@@ -1,4 +1,4 @@
-# Custom LLM Council
+# Prism - Custom LLM Council
 
 ## Overview
 
