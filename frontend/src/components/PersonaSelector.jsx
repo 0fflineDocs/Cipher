@@ -8,7 +8,7 @@ export default function PersonaSelector({
   selectedChairman,
   onSelectionChange,
 }) {
-  const [activeCategory, setActiveCategory] = useState('tech');
+  const [activeCategory, setActiveCategory] = useState('cybersecurity');
   const maxMembers = 6;
 
   const handlePersonaToggle = (personaName) => {
@@ -32,27 +32,36 @@ export default function PersonaSelector({
   };
 
   const handleReset = () => {
-    // Default selection: first 3 from tech, first from culture
-    const defaultMembers = [];
+    // Default selection: all 4 Cybersecurity personas with Strategic Principal
+    const defaultMembers = [
+      'Security Architect',
+      'Strategic Advisory',
+      'Cybersecurity Research',
+      'Business Risk & Compliance'
+    ];
     
-    // Add up to 3 tech personas
-    if (personas.tech && personas.tech.length > 0) {
-      const techCount = Math.min(3, personas.tech.length);
-      for (let i = 0; i < techCount; i++) {
-        defaultMembers.push(personas.tech[i].name);
-      }
-    }
-    
-    // Add 1 culture persona if available
-    if (personas.culture && personas.culture.length > 0) {
-      defaultMembers.push(personas.culture[0].name);
-    }
-    
-    const defaultChairman = chairmen && chairmen.length > 0 ? chairmen[0].name : selectedChairman;
+    const defaultChairman = 'Strategic Principal';
     onSelectionChange(defaultMembers, defaultChairman);
   };
 
   const currentPersonas = personas[activeCategory] || [];
+
+  // Filter chairmen based on active category
+  const getAvailableChairmen = () => {
+    if (!chairmen) return [];
+    
+    switch (activeCategory) {
+      case 'culture':
+        return chairmen.filter(c => c.name === 'Ozymandias' || c.name === 'Sage');
+      case 'cybersecurity':
+      case 'tech':
+        return chairmen.filter(c => c.name === 'Strategic Principal' || c.name === 'Technical Director');
+      default:
+        return [];
+    }
+  };
+
+  const availableChairmen = getAvailableChairmen();
 
   return (
     <div className="persona-selector">
@@ -62,6 +71,12 @@ export default function PersonaSelector({
         <h4>Council Members ({selectedMembers.length}/{maxMembers})</h4>
         
         <div className="category-tabs">
+          <button
+            className={`category-tab ${activeCategory === 'cybersecurity' ? 'active' : ''}`}
+            onClick={() => setActiveCategory('cybersecurity')}
+          >
+            Cybersecurity
+          </button>
           <button
             className={`category-tab ${activeCategory === 'tech' ? 'active' : ''}`}
             onClick={() => setActiveCategory('tech')}
@@ -73,12 +88,6 @@ export default function PersonaSelector({
             onClick={() => setActiveCategory('culture')}
           >
             Culture
-          </button>
-          <button
-            className={`category-tab ${activeCategory === 'cybersecurity' ? 'active' : ''}`}
-            onClick={() => setActiveCategory('cybersecurity')}
-          >
-            Cybersecurity
           </button>
         </div>
 
@@ -113,9 +122,9 @@ export default function PersonaSelector({
       </div>
 
       <div className="persona-selector-section">
-        <h4>Chairman</h4>
+        <h4>Chairmen</h4>
         <div className="chairman-select">
-          {chairmen && chairmen.map((chairman) => (
+          {availableChairmen.map((chairman) => (
             <div
               key={chairman.name}
               className={`chairman-option ${

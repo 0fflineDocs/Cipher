@@ -23,7 +23,7 @@ export default function MembersView({ personas, chairmen }) {
 
   // Helper to determine if a persona is a chairman and what category they belong to
   const getChairmanCategory = (chairmanName) => {
-    if (chairmanName === 'Technical Principal') return 'tech';
+    if (chairmanName === 'Technical Director') return 'tech';
     if (chairmanName === 'Strategic Principal') return 'cybersecurity';
     if (chairmanName === 'Ozymandias' || chairmanName === 'Sage') return 'culture';
     return null;

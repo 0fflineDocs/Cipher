@@ -26,7 +26,7 @@ Technical implementation, architecture, and operational support:
 - **Tech Support Specialist** - Systematic troubleshooter with step-by-step diagnostic guidance
 - **Implementation Specialist** - Operational feasibility expert for sustainable deployment
 - **Threat & Detection Specialist** - Detection engineer specializing in MITRE ATT&CK
-- **Technical Principal** (Chairman) - Operational synthesizer for implementation guidance
+- **Technical Director** (Chairman) - Operational synthesizer for implementation guidance
 
 ### Culture Category
 Cultural insights, creative perspectives, and human-centered thinking:
@@ -50,7 +50,7 @@ Cultural insights, creative perspectives, and human-centered thinking:
 | Tech Support Specialist | Tech | google/gemini-2.5-pro |
 | Implementation Specialist | Tech | anthropic/claude-sonnet-4 |
 | Threat & Detection Specialist | Tech | x-ai/grok-3 |
-| Technical Principal | Tech & Chairman | google/gemini-2.5-pro |
+| Technical Director | Tech & Chairman | google/gemini-2.5-pro |
 | The Seer | Culture | openai/gpt-4o |
 | Muse | Culture | anthropic/claude-3.5-sonnet |
 | Themis | Culture | google/gemini-2.5-flash-thinking-exp:free |
@@ -115,7 +115,7 @@ Prism comes with default personas pre-configured, but you can customize the coun
 - **`CYBERSECURITY_PERSONAS`**: Security-focused personas (Security Architect, Strategic Advisory, Cybersecurity Research, Business Risk & Compliance)
 - **`TECH_PERSONAS`**: Technology-focused personas (Solutions Architecture Specialist, Tech Support Specialist, Implementation Specialist, Threat & Detection Specialist)
 - **`CULTURE_PERSONAS`**: Culture-focused personas (The Seer, Muse, Themis, Voice)
-- **`CHAIRMAN_OPTIONS`**: Available chairman personas (Strategic Principal, Technical Principal, Ozymandias, Sage)
+- **`CHAIRMAN_OPTIONS`**: Available chairman personas (Strategic Principal, Technical Director, Ozymandias, Sage)
 
 Each persona has:
 - `name`: The persona's identifier
@@ -126,7 +126,7 @@ Each persona has:
 
 Chairmen are integrated into their respective categories:
 - **Strategic Principal** appears in Cybersecurity
-- **Technical Principal** appears in Tech
+- **Technical Director** appears in Tech
 - **Ozymandias** and **Sage** appear in Culture
 
 You can also configure your council from the web interface using the persona selector.

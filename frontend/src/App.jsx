@@ -37,25 +37,17 @@ function App() {
       const data = await api.getPersonas();
       setPersonas(data);
       
-      // Set default selections
-      if (data.personas && data.chairmen && data.chairmen.length > 0) {
-        const defaultMembers = [];
-        
-        // Add up to 3 tech personas
-        if (data.personas.tech && data.personas.tech.length > 0) {
-          const techCount = Math.min(3, data.personas.tech.length);
-          for (let i = 0; i < techCount; i++) {
-            defaultMembers.push(data.personas.tech[i].name);
-          }
-        }
-        
-        // Add 1 culture persona if available
-        if (data.personas.culture && data.personas.culture.length > 0) {
-          defaultMembers.push(data.personas.culture[0].name);
-        }
+      // Set default selections: all 4 Cybersecurity personas with Strategic Principal
+      if (data.personas && data.chairmen) {
+        const defaultMembers = [
+          'Security Architect',
+          'Strategic Advisory',
+          'Cybersecurity Research',
+          'Business Risk & Compliance'
+        ];
         
         setSelectedMembers(defaultMembers);
-        setSelectedChairman(data.chairmen[0].name);
+        setSelectedChairman('Strategic Principal');
       }
     } catch (error) {
       console.error('Failed to load personas:', error);
