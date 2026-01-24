@@ -1,4 +1,4 @@
-![Prism Header](header.png)
+<img width="580" height="182" alt="image" src="https://github.com/user-attachments/assets/e39f335e-efb1-4643-8300-a0abce923b24" />
 
 # Prism - Multi-LLM Council with Personas
 
