@@ -57,32 +57,6 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-.chairman-header {
-  cursor: default;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-}
-
-.chairman-header:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.category-icon {
-  font-size: 1.2em;
-}
-
-.category-icon.tech {
-  color: var(--tech-purple);
-}
-
-.category-icon.culture {
-  color: var(--culture-green);
-}
-
-.category-icon.chairman {
-  color: var(--chairman-orange);
-}
-
 .persona-list {
   background: var(--bg-primary);
 }
@@ -110,7 +84,13 @@
   border-left-color: var(--culture-green);
 }
 
-.persona-item.chairman.selected {
+.persona-item.cybersecurity.selected {
+  border-left-color: var(--cybersecurity-blue);
+}
+
+.persona-item.tech-chairman.selected,
+.persona-item.culture-chairman.selected,
+.persona-item.cybersecurity-chairman.selected {
   border-left-color: var(--chairman-orange);
 }
 

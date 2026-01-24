@@ -3,13 +3,13 @@ import ReactMarkdown from 'react-markdown';
 import './MembersView.css';
 
 export default function MembersView({ personas, chairmen }) {
-  const [activeCategory, setActiveCategory] = useState('tech');
+  const [activeCategory, setActiveCategory] = useState('cybersecurity');
   const [selectedPersona, setSelectedPersona] = useState(null);
 
   // Auto-select first persona if none selected
   useEffect(() => {
-    if (!selectedPersona && personas && personas.tech && personas.tech.length > 0) {
-      setSelectedPersona({ ...personas.tech[0], category: 'tech' });
+    if (!selectedPersona && personas && personas.cybersecurity && personas.cybersecurity.length > 0) {
+      setSelectedPersona({ ...personas.cybersecurity[0], category: 'cybersecurity' });
     }
   }, [personas, selectedPersona]);
 
@@ -21,38 +21,59 @@ export default function MembersView({ personas, chairmen }) {
     );
   }
 
-  // Get current category personas
-  const currentPersonas = personas[activeCategory] || [];
+  // Helper to determine if a persona is a chairman and what category they belong to
+  const getChairmanCategory = (chairmanName) => {
+    if (chairmanName === 'Technical Principal') return 'tech';
+    if (chairmanName === 'Strategic Principal') return 'cybersecurity';
+    if (chairmanName === 'Ozymandias' || chairmanName === 'Sage') return 'culture';
+    return null;
+  };
+
+  // Get chairmen for a specific category
+  const getChairmenForCategory = (category) => {
+    return chairmen.filter((chairman) => getChairmanCategory(chairman.name) === category);
+  };
 
   const handlePersonaClick = (persona, category) => {
     setSelectedPersona({ ...persona, category });
   };
 
-  const handleChairmanClick = (chairman) => {
-    setSelectedPersona({ ...chairman, category: 'chairman' });
-  };
-
-  const getCategoryColor = (category) => {
+  const getCategoryColor = (category, isChairman = false) => {
+    if (isChairman) {
+      return 'var(--chairman-orange)';
+    }
     switch (category) {
       case 'tech':
         return 'var(--tech-purple)';
       case 'culture':
         return 'var(--culture-green)';
-      case 'chairman':
-        return 'var(--chairman-orange)';
+      case 'cybersecurity':
+        return 'var(--cybersecurity-blue)';
       default:
         return 'var(--text-primary)';
     }
   };
 
-  const getCategoryLabel = (category) => {
+  const getCategoryLabel = (category, isChairman = false) => {
+    if (isChairman) {
+      switch (category) {
+        case 'tech':
+          return 'Tech Council Member & Chairman';
+        case 'culture':
+          return 'Culture Council Member & Chairman';
+        case 'cybersecurity':
+          return 'Cybersecurity Council Member & Chairman';
+        default:
+          return 'Chairman';
+      }
+    }
     switch (category) {
       case 'tech':
         return 'Tech Council Member';
       case 'culture':
         return 'Culture Council Member';
-      case 'chairman':
-        return 'Chairman';
+      case 'cybersecurity':
+        return 'Cybersecurity Council Member';
       default:
         return 'System';
     }
@@ -63,13 +84,50 @@ export default function MembersView({ personas, chairmen }) {
       <div className="members-sidebar">
         <h2 className="members-title">Council Members</h2>
 
+        {/* Cybersecurity Personas */}
+        <div className="members-category">
+          <button
+            className={`category-header ${activeCategory === 'cybersecurity' ? 'active' : ''}`}
+            onClick={() => setActiveCategory('cybersecurity')}
+          >
+            <span>Cybersecurity</span>
+          </button>
+          {activeCategory === 'cybersecurity' && (
+            <div className="persona-list">
+              {personas.cybersecurity?.map((persona) => (
+                <div
+                  key={persona.name}
+                  className={`persona-item cybersecurity ${
+                    selectedPersona?.name === persona.name ? 'selected' : ''
+                  }`}
+                  onClick={() => handlePersonaClick(persona, 'cybersecurity')}
+                >
+                  <div className="persona-item-name">{persona.name}</div>
+                  <div className="persona-item-role">{persona.personality}</div>
+                </div>
+              ))}
+              {getChairmenForCategory('cybersecurity').map((chairman) => (
+                <div
+                  key={chairman.name}
+                  className={`persona-item cybersecurity-chairman ${
+                    selectedPersona?.name === chairman.name ? 'selected' : ''
+                  }`}
+                  onClick={() => handlePersonaClick(chairman, 'cybersecurity')}
+                >
+                  <div className="persona-item-name">{chairman.name}</div>
+                  <div className="persona-item-role">{chairman.personality}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Tech Personas */}
         <div className="members-category">
           <button
             className={`category-header ${activeCategory === 'tech' ? 'active' : ''}`}
             onClick={() => setActiveCategory('tech')}
           >
-            <span className="category-icon tech">⚡</span>
             <span>Tech</span>
           </button>
           {activeCategory === 'tech' && (
@@ -86,6 +144,18 @@ export default function MembersView({ personas, chairmen }) {
                   <div className="persona-item-role">{persona.personality}</div>
                 </div>
               ))}
+              {getChairmenForCategory('tech').map((chairman) => (
+                <div
+                  key={chairman.name}
+                  className={`persona-item tech-chairman ${
+                    selectedPersona?.name === chairman.name ? 'selected' : ''
+                  }`}
+                  onClick={() => handlePersonaClick(chairman, 'tech')}
+                >
+                  <div className="persona-item-name">{chairman.name}</div>
+                  <div className="persona-item-role">{chairman.personality}</div>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -96,7 +166,6 @@ export default function MembersView({ personas, chairmen }) {
             className={`category-header ${activeCategory === 'culture' ? 'active' : ''}`}
             onClick={() => setActiveCategory('culture')}
           >
-            <span className="category-icon culture">🎨</span>
             <span>Culture</span>
           </button>
           {activeCategory === 'culture' && (
@@ -113,30 +182,20 @@ export default function MembersView({ personas, chairmen }) {
                   <div className="persona-item-role">{persona.personality}</div>
                 </div>
               ))}
+              {getChairmenForCategory('culture').map((chairman) => (
+                <div
+                  key={chairman.name}
+                  className={`persona-item culture-chairman ${
+                    selectedPersona?.name === chairman.name ? 'selected' : ''
+                  }`}
+                  onClick={() => handlePersonaClick(chairman, 'culture')}
+                >
+                  <div className="persona-item-name">{chairman.name}</div>
+                  <div className="persona-item-role">{chairman.personality}</div>
+                </div>
+              ))}
             </div>
           )}
-        </div>
-
-        {/* Chairmen */}
-        <div className="members-category">
-          <div className="category-header chairman-header">
-            <span className="category-icon chairman">👑</span>
-            <span>Chairmen</span>
-          </div>
-          <div className="persona-list">
-            {chairmen?.map((chairman) => (
-              <div
-                key={chairman.name}
-                className={`persona-item chairman ${
-                  selectedPersona?.name === chairman.name ? 'selected' : ''
-                }`}
-                onClick={() => handleChairmanClick(chairman)}
-              >
-                <div className="persona-item-name">{chairman.name}</div>
-                <div className="persona-item-role">{chairman.personality}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -146,13 +205,13 @@ export default function MembersView({ personas, chairmen }) {
             <div className="persona-header">
               <div
                 className="persona-category-badge"
-                style={{ borderColor: getCategoryColor(selectedPersona.category) }}
+                style={{ borderColor: getCategoryColor(selectedPersona.category, selectedPersona.isChairman) }}
               >
-                {getCategoryLabel(selectedPersona.category)}
+                {getCategoryLabel(selectedPersona.category, selectedPersona.isChairman || (chairmen && chairmen.some(c => c.name === selectedPersona.name)))}
               </div>
               <h1
                 className="persona-name-large"
-                style={{ color: getCategoryColor(selectedPersona.category) }}
+                style={{ color: getCategoryColor(selectedPersona.category, selectedPersona.isChairman || (chairmen && chairmen.some(c => c.name === selectedPersona.name))) }}
               >
                 {selectedPersona.name}
               </h1>

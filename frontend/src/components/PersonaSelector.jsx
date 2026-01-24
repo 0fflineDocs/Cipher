@@ -74,6 +74,12 @@ export default function PersonaSelector({
           >
             Culture
           </button>
+          <button
+            className={`category-tab ${activeCategory === 'cybersecurity' ? 'active' : ''}`}
+            onClick={() => setActiveCategory('cybersecurity')}
+          >
+            Cybersecurity
+          </button>
         </div>
 
         <div className="persona-grid">
