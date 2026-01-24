@@ -1,7 +1,7 @@
 .sidebar {
   width: 280px;
-  background: #0F1419;
-  border-right: 1px solid #2A3038;
+  background: #000000;
+  border-right: 1px solid #2A2A2A;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -9,7 +9,7 @@
 
 .sidebar-header {
   padding: 32px 20px 24px 20px;
-  border-bottom: 1px solid #2A3038;
+  border-bottom: 1px solid #2A2A2A;
 }
 
 .sidebar-header h1 {
@@ -25,7 +25,7 @@
   width: 100%;
   padding: 12px 16px;
   background: transparent;
-  border: 1px solid #2A3038;
+  border: 1px solid #2A2A2A;
   border-radius: 6px;
   color: #FFFFFF;
   cursor: pointer;
@@ -34,11 +34,42 @@
   letter-spacing: 0;
   transition: all 0.2s ease;
   font-family: 'Inter', sans-serif;
+  margin-bottom: 8px;
 }
 
 .new-conversation-btn:hover {
-  background: #1A1F26;
-  border-color: #00B8D4;
+  background: #0A0A0A;
+  border-color: #A855F7;
+}
+
+.view-members-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid #2A2A2A;
+  border-radius: 6px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 0.875em;
+  font-weight: 500;
+  letter-spacing: 0;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.view-members-btn:hover {
+  background: #0A0A0A;
+  border-color: #10B981;
+}
+
+.view-members-btn.active {
+  background: #0A0A0A;
+  border-color: #10B981;
+  color: #10B981;
 }
 
 .conversation-list {
@@ -50,7 +81,7 @@
 .no-conversations {
   padding: 24px 16px;
   text-align: center;
-  color: #6B7280;
+  color: #707070;
   font-size: 0.875em;
 }
 
@@ -65,11 +96,11 @@
 }
 
 .conversation-item:hover {
-  background: #1A1F26;
+  background: #0A0A0A;
 }
 
 .conversation-item.active {
-  background: #1E2329;
+  background: #1A1A1A;
 }
 
 .conversation-title {
@@ -84,5 +115,5 @@
 
 .conversation-date {
   font-size: 0.7em;
-  color: #6B7280;
+  color: #707070;
 }

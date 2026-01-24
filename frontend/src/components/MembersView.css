@@ -1,0 +1,242 @@
+/* Members View - Displays personas and their system messages */
+
+.members-view {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.members-sidebar {
+  width: 300px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 24px 0;
+}
+
+.members-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 24px 24px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.members-category {
+  margin-bottom: 16px;
+}
+
+.category-header {
+  width: 100%;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.875em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.category-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.category-header.active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chairman-header {
+  cursor: default;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.chairman-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.category-icon {
+  font-size: 1.2em;
+}
+
+.category-icon.tech {
+  color: var(--tech-purple);
+}
+
+.category-icon.culture {
+  color: var(--culture-green);
+}
+
+.category-icon.chairman {
+  color: var(--chairman-orange);
+}
+
+.persona-list {
+  background: var(--bg-primary);
+}
+
+.persona-item {
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.persona-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.persona-item.selected {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.persona-item.tech.selected {
+  border-left-color: var(--tech-purple);
+}
+
+.persona-item.culture.selected {
+  border-left-color: var(--culture-green);
+}
+
+.persona-item.chairman.selected {
+  border-left-color: var(--chairman-orange);
+}
+
+.persona-item-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.9375em;
+  margin-bottom: 4px;
+}
+
+.persona-item-role {
+  font-size: 0.75em;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.members-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 80px;
+}
+
+.members-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  font-size: 1.125em;
+}
+
+.persona-header {
+  margin-bottom: 40px;
+}
+
+.persona-category-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.persona-name-large {
+  font-size: 3em;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+.persona-personality-large {
+  font-size: 1.25em;
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.persona-model {
+  font-size: 0.875em;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.persona-model code {
+  background: var(--surface);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+.persona-system-message {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.persona-system-message h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.system-message-content {
+  color: var(--text-primary);
+  line-height: 1.8;
+  font-size: 0.9375em;
+}
+
+.system-message-content p {
+  margin-bottom: 16px;
+}
+
+.system-message-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Scrollbar styling */
+.members-sidebar::-webkit-scrollbar,
+.members-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.members-sidebar::-webkit-scrollbar-track,
+.members-content::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.members-sidebar::-webkit-scrollbar-thumb,
+.members-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.members-sidebar::-webkit-scrollbar-thumb:hover,
+.members-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

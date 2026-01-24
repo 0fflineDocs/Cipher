@@ -1,7 +1,7 @@
-/* Stage 1: Individual Council Member Responses - Minimalist Futuristic */
+/* Stage 1: Individual Council Member Responses - Modern Dark Theme */
 
 :root {
-  --primary-cyan: #00B8D4;
+  --primary-cyan: #A855F7;
 }
 
 .stage {
@@ -14,7 +14,7 @@
 
 .stage-title {
   margin: 0 0 24px 0;
-  color: #00B8D4;
+  color: #A855F7;
   font-size: 1.5em;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
@@ -31,8 +31,8 @@
 
 .council-tab {
   padding: 16px 12px;
-  background: #1A1F26;
-  border: 1px solid #2A3038;
+  background: #0A0A0A;
+  border: 1px solid #2A2A2A;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -63,21 +63,21 @@
 }
 
 .council-tab:hover {
-  background: #1E2329;
-  border-color: #00B8D4;
+  background: #1A1A1A;
+  border-color: #A855F7;
 }
 
 .council-tab:hover::before {
-  background: #00B8D4;
+  background: #A855F7;
 }
 
 .council-tab.active {
-  background: #1E2329;
-  border-color: #00B8D4;
+  background: #1A1A1A;
+  border-color: #A855F7;
 }
 
 .council-tab.active::before {
-  background: #00B8D4;
+  background: #A855F7;
 }
 
 .council-avatar {
@@ -88,15 +88,15 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
-  background: #1E2329;
+  background: #1A1A1A;
   color: #FFFFFF;
   transition: all 0.2s ease;
-  border: 1px solid #2A3038;
+  border: 1px solid #2A2A2A;
 }
 
 .council-tab:hover .council-avatar,
 .council-tab.active .council-avatar {
-  border-color: #00B8D4;
+  border-color: #A855F7;
 }
 
 .council-tab.active .council-avatar {
@@ -112,28 +112,28 @@
 
 .council-personality {
   font-size: 0.75em;
-  color: #6B7280;
+  color: #707070;
   font-family: 'Inter', sans-serif;
 }
 
 .tab-content {
-  background: #1A1F26;
+  background: #0A0A0A;
   padding: 24px;
   border-radius: 8px;
-  border: 1px solid #2A3038;
+  border: 1px solid #2A2A2A;
 }
 
 .response-header {
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #2A3038;
+  border-bottom: 1px solid #2A2A2A;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .responding-as {
-  color: #6B7280;
+  color: #707070;
   font-size: 0.875em;
   font-family: 'Inter', sans-serif;
   text-transform: uppercase;

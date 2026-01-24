@@ -1,7 +1,7 @@
-/* Stage 2: Ranked Council Responses - Minimalist Futuristic */
+/* Stage 2: Ranked Council Responses - Modern Dark Theme */
 
 :root {
-  --primary-cyan: #00B8D4;
+  --primary-cyan: #A855F7;
 }
 
 .stage {
@@ -14,7 +14,7 @@
 
 .stage-title {
   margin: 0 0 24px 0;
-  color: #00B8D4;
+  color: #A855F7;
   font-size: 1.5em;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
@@ -30,16 +30,16 @@
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
-  border-left: 2px solid #00B8D4;
-  background: #1A1F26;
-  border: 1px solid #2A3038;
-  border-left: 2px solid #00B8D4;
+  border-left: 2px solid #A855F7;
+  background: #0A0A0A;
+  border: 1px solid #2A2A2A;
+  border-left: 2px solid #A855F7;
   transition: all 0.2s ease;
 }
 
 .ranking-item:hover {
-  background: #1E2329;
-  border-color: #00B8D4;
+  background: #1A1A1A;
+  border-color: #A855F7;
 }
 
 .ranking-header {
@@ -47,7 +47,7 @@
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #2A3038;
+  border-bottom: 1px solid #2A2A2A;
 }
 
 .ranking-icon {
@@ -60,8 +60,8 @@
   color: #FFFFFF;
   margin-right: 12px;
   font-size: 0.875em;
-  border: 1px solid #2A3038;
-  background: #1E2329;
+  border: 1px solid #2A2A2A;
+  background: #1A1A1A;
 }
 
 .ranking-name {
@@ -74,7 +74,7 @@
 .ranking-role {
   font-family: 'Inter', sans-serif;
   font-size: 0.75em;
-  color: #6B7280;
+  color: #707070;
   margin-left: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -89,9 +89,9 @@
 .ranking-list {
   margin-top: 16px;
   padding: 16px;
-  background: #1E2329;
+  background: #1A1A1A;
   border-radius: 6px;
-  border: 1px solid #2A3038;
+  border: 1px solid #2A2A2A;
 }
 
 .ranking-list h4 {

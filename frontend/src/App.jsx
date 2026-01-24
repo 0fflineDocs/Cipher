@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ChatInterface from './components/ChatInterface';
+import MembersView from './components/MembersView';
 import { api } from './api';
 import './App.css';
 
@@ -12,6 +13,7 @@ function App() {
   const [personas, setPersonas] = useState(null);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedChairman, setSelectedChairman] = useState(null);
+  const [currentView, setCurrentView] = useState('chat');
 
   // Load personas on mount
   useEffect(() => {
@@ -86,6 +88,7 @@ function App() {
         ...conversations,
       ]);
       setCurrentConversationId(newConv.id);
+      setCurrentView('chat');
     } catch (error) {
       console.error('Failed to create conversation:', error);
     }
@@ -93,6 +96,11 @@ function App() {
 
   const handleSelectConversation = (id) => {
     setCurrentConversationId(id);
+    setCurrentView('chat');
+  };
+
+  const handleViewMembers = () => {
+    setCurrentView('members');
   };
 
   const handleSendMessage = async (content) => {
@@ -232,19 +240,28 @@ function App() {
         currentConversationId={currentConversationId}
         onSelectConversation={handleSelectConversation}
         onNewConversation={handleNewConversation}
+        onViewMembers={handleViewMembers}
+        currentView={currentView}
       />
-      <ChatInterface
-        conversation={currentConversation}
-        onSendMessage={handleSendMessage}
-        isLoading={isLoading}
-        personas={personas}
-        selectedMembers={selectedMembers}
-        selectedChairman={selectedChairman}
-        onSelectionChange={(members, chairman) => {
-          setSelectedMembers(members);
-          setSelectedChairman(chairman);
-        }}
-      />
+      {currentView === 'members' ? (
+        <MembersView 
+          personas={personas?.personas} 
+          chairmen={personas?.chairmen}
+        />
+      ) : (
+        <ChatInterface
+          conversation={currentConversation}
+          onSendMessage={handleSendMessage}
+          isLoading={isLoading}
+          personas={personas}
+          selectedMembers={selectedMembers}
+          selectedChairman={selectedChairman}
+          onSelectionChange={(members, chairman) => {
+            setSelectedMembers(members);
+            setSelectedChairman(chairman);
+          }}
+        />
+      )}
     </div>
   );
 }

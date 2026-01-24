@@ -1,6 +1,6 @@
 .persona-selector {
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #0A0A0A;
+  border: 1px solid #2A2A2A;
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 20px;
@@ -10,7 +10,7 @@
   margin: 0 0 16px 0;
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #FFFFFF;
 }
 
 .persona-selector-section {
@@ -25,7 +25,7 @@
   margin: 0 0 12px 0;
   font-size: 14px;
   font-weight: 600;
-  color: #666;
+  color: #A0A0A0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -34,7 +34,7 @@
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid #2A2A2A;
 }
 
 .category-tab {
@@ -45,18 +45,18 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: #666;
+  color: #A0A0A0;
   transition: all 0.2s;
   margin-bottom: -2px;
 }
 
 .category-tab:hover {
-  color: #4a90e2;
+  color: #A855F7;
 }
 
 .category-tab.active {
-  color: #4a90e2;
-  border-bottom-color: #4a90e2;
+  color: #A855F7;
+  border-bottom-color: #A855F7;
 }
 
 .persona-grid {
@@ -67,21 +67,21 @@
 
 .persona-card {
   padding: 12px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #2A2A2A;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
-  background: white;
+  background: #000000;
 }
 
 .persona-card:hover {
-  border-color: #4a90e2;
-  background: #f8fbff;
+  border-color: #A855F7;
+  background: #0A0A0A;
 }
 
 .persona-card.selected {
-  border-color: #4a90e2;
-  background: #e8f4ff;
+  border-color: #A855F7;
+  background: #0A0A0A;
 }
 
 .persona-card.disabled {
@@ -90,20 +90,20 @@
 }
 
 .persona-card.disabled:hover {
-  border-color: #e0e0e0;
-  background: white;
+  border-color: #2A2A2A;
+  background: #000000;
 }
 
 .persona-name {
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: #FFFFFF;
   margin-bottom: 4px;
 }
 
 .persona-personality {
   font-size: 12px;
-  color: #666;
+  color: #A0A0A0;
   line-height: 1.4;
 }
 
@@ -115,40 +115,40 @@
 
 .chairman-option {
   padding: 12px 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #2A2A2A;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
-  background: white;
+  background: #000000;
   flex: 1;
   min-width: 150px;
 }
 
 .chairman-option:hover {
-  border-color: #4a90e2;
-  background: #f8fbff;
+  border-color: #F97316;
+  background: #0A0A0A;
 }
 
 .chairman-option.selected {
-  border-color: #4a90e2;
-  background: #e8f4ff;
+  border-color: #F97316;
+  background: #0A0A0A;
 }
 
 .chairman-name {
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: #FFFFFF;
   margin-bottom: 4px;
 }
 
 .chairman-personality {
   font-size: 12px;
-  color: #666;
+  color: #A0A0A0;
 }
 
 .selection-count {
   font-size: 12px;
-  color: #666;
+  color: #A0A0A0;
   margin-top: 8px;
 }
 
@@ -157,28 +157,28 @@
   gap: 12px;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #2A2A2A;
 }
 
 .btn-reset {
   padding: 8px 16px;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #000000;
+  border: 1px solid #2A2A2A;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  color: #666;
+  color: #A0A0A0;
   transition: all 0.2s;
 }
 
 .btn-reset:hover {
-  border-color: #999;
-  color: #333;
+  border-color: #A855F7;
+  color: #FFFFFF;
 }
 
 .btn-confirm {
   padding: 8px 16px;
-  background: #4a90e2;
+  background: #A855F7;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -190,7 +190,7 @@
 }
 
 .btn-confirm:hover {
-  background: #357abd;
+  background: #9333EA;
 }
 
 .btn-confirm:disabled {
