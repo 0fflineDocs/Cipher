@@ -25,10 +25,9 @@ export default function Stage1({ responses }) {
       <div className="council-tabs">
         {responses.map((resp, index) => {
           const councilName = resp.name || resp.model.split('/')[1] || resp.model;
-          const councilClass = councilName.toLowerCase();
-          // Extract the text in parentheses (e.g., "The Realist" from "The Ancient Titan (The Realist)")
-          const roleMatch = resp.personality?.match(/\(([^)]+)\)/);
-          const role = roleMatch ? roleMatch[1] : resp.personality || '';
+          const councilClass = councilName.toLowerCase().replace(/\s+/g, '-');
+          // Just use the personality field directly (no extraction needed)
+          const role = resp.personality || '';
           return (
             <button
               key={index}

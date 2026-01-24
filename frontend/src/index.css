@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Modern Dark Palette - Black with Purple, Green, Blue, Orange, White */
+  /* Modern Dark Palette - Black with Purple, Blue, Orange, White */
   --tech-purple: #A855F7;      /* Purple for Tech personas */
-  --culture-green: #10B981;    /* Green for Culture personas */
   --cybersecurity-blue: #3B82F6; /* Blue for Cybersecurity personas */
   --chairman-orange: #F97316;  /* Orange for Chairman */
   --system-white: #FFFFFF;     /* White for system/primary text */
@@ -13,8 +12,6 @@
   --atlas: #A855F7;
   --cipher: #A855F7;
   --eliza: #A855F7;
-  --seer: #10B981;
-  --ozymandias: #F97316;
   
   /* Background & Surface */
   --bg-primary: #000000;       /* Pure black */

@@ -12,7 +12,7 @@ export default function Sidebar({
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h1 onClick={onNewConversation} style={{ cursor: 'pointer' }}>Prism</h1>
+        <h1 onClick={onNewConversation} style={{ cursor: 'pointer' }}>Cipher</h1>
         <button className="new-conversation-btn" onClick={onNewConversation}>
           + New Conversation
         </button>

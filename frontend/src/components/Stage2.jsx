@@ -6,11 +6,11 @@ function deAnonymizeText(text, labelToModel) {
   if (!labelToModel) return text;
 
   let result = text;
-  // Replace each "Response from X" with personality type and model in parentheses
+  // Replace each "Response from X" with persona name and model in parentheses
   Object.entries(labelToModel).forEach(([label, info]) => {
-    const personalityType = info.personality.split('(')[1]?.replace(')', '') || 'Unknown';
+    const personaName = info.name || 'Unknown';
     const modelShortName = info.model.split('/')[1] || info.model;
-    result = result.replace(new RegExp(label, 'gi'), `**${personalityType}** (${modelShortName})`);
+    result = result.replace(new RegExp(label, 'gi'), `**${personaName}** (${modelShortName})`);
   });
   return result;
 }
@@ -39,14 +39,14 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
             className={`tab ${activeTab === index ? 'active' : ''}`}
             onClick={() => setActiveTab(index)}
           >
-            {rank.personality.split('(')[1]?.replace(')', '') || rank.model.split('/')[1] || rank.model}
+            {rank.name || rank.model.split('/')[1] || rank.model}
           </button>
         ))}
       </div>
 
       <div className="tab-content">
         <div className="ranking-model">
-          {rankings[activeTab].personality.split('(')[1]?.replace(')', '')} ({rankings[activeTab].model.split('/')[1] || rankings[activeTab].model})
+          {rankings[activeTab].name || 'Unknown'} ({rankings[activeTab].model.split('/')[1] || rankings[activeTab].model})
         </div>
         <div className="ranking-content markdown-content">
           <ReactMarkdown>
@@ -62,9 +62,9 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
               {rankings[activeTab].parsed_ranking.map((label, i) => {
                 const info = labelToModel && labelToModel[label];
                 if (info) {
-                  const personalityType = info.personality.split('(')[1]?.replace(')', '') || 'Unknown';
+                  const personaName = info.name || 'Unknown';
                   const modelShortName = info.model.split('/')[1] || info.model;
-                  return <li key={i}>{personalityType} ({modelShortName})</li>;
+                  return <li key={i}>{personaName} ({modelShortName})</li>;
                 }
                 return <li key={i}>{label}</li>;
               })}
@@ -81,13 +81,13 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
           </p>
           <div className="aggregate-list">
             {aggregateRankings.map((agg, index) => {
-              const personalityType = agg.personality?.split('(')[1]?.replace(')', '') || 'Unknown';
+              const personaName = agg.name || 'Unknown';
               const modelShortName = agg.model.split('/')[1] || agg.model;
               return (
                 <div key={index} className="aggregate-item">
                   <span className="rank-position">#{index + 1}</span>
                   <span className="rank-model">
-                    {personalityType} ({modelShortName})
+                    {personaName} ({modelShortName})
                   </span>
                   <span className="rank-score">
                     Avg: {agg.average_rank.toFixed(2)}

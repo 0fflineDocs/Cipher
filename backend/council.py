@@ -1,4 +1,4 @@
-"""3-stage Prism orchestration."""
+"""3-stage Cipher orchestration."""
 
 from typing import List, Dict, Any, Tuple
 from .openrouter import query_models_parallel, query_model
@@ -68,12 +68,12 @@ async def stage2_collect_rankings(
     """
     if council_models is None:
         council_models = COUNCIL_MODELS
-    # Create descriptive labels using personality names
-    labels = [result['personality'].split('(')[1].rstrip(')') for result in stage1_results]
+    # Create descriptive labels using persona names (lowercased for consistency)
+    labels = [result['name'].lower() for result in stage1_results]
 
     # Create mapping from label to model name and personality
     label_to_model = {
-        f"Response from {label.lower()}": {
+        f"Response from {label}": {
             'model': result['model'],
             'name': result['name'],
             'personality': result['personality']
@@ -83,7 +83,7 @@ async def stage2_collect_rankings(
 
     # Build the ranking prompt
     responses_text = "\n\n".join([
-        f"Response from {label.lower()}:\n{result['response']}"
+        f"Response from {label}:\n{result['response']}"
         for label, result in zip(labels, stage1_results)
     ])
 
@@ -107,14 +107,14 @@ IMPORTANT: Your final ranking MUST be formatted EXACTLY as follows:
 
 Example of the correct format for your ENTIRE response:
 
-Response from the realist provides good detail on X but misses Y...
-Response from the contrarian is accurate but lacks depth on Z...
-Response from the philosopher offers the most comprehensive answer...
+Response from security architect provides good detail on X but misses Y...
+Response from strategic advisory is accurate but lacks depth on Z...
+Response from cybersecurity research offers the most comprehensive answer...
 
 FINAL RANKING:
-1. Response from the philosopher
-2. Response from the realist
-3. Response from the contrarian
+1. Response from cybersecurity research
+2. Response from security architect
+3. Response from strategic advisory
 
 Now provide your evaluation and ranking:"""
 
@@ -180,7 +180,7 @@ async def stage3_synthesize_final(
         for result in stage2_results
     ])
 
-    chairman_prompt = f"""You are the Chairman of Prism. Multiple AI models have provided responses to a user's question, and then ranked each other's responses.
+    chairman_prompt = f"""You are the Chairman of Cipher. Multiple AI models have provided responses to a user's question, and then ranked each other's responses.
 
 Original Question: {user_query}
 
@@ -240,20 +240,20 @@ def parse_ranking_from_text(ranking_text: str) -> List[str]:
         parts = ranking_text.split("FINAL RANKING:")
         if len(parts) >= 2:
             ranking_section = parts[1]
-            # Try to extract numbered list format (e.g., "1. Response from the realist")
-            # This pattern looks for: number, period, optional space, "Response from..."
-            numbered_matches = re.findall(r'\d+\.\s*Response from (?:the )?[a-z]+', ranking_section, re.IGNORECASE)
+            # Try to extract numbered list format (e.g., "1. Response from security architect")
+            # This pattern looks for: number, period, optional space, "Response from..." (can include multiple words)
+            numbered_matches = re.findall(r'\d+\.\s*Response from [a-z][a-z0-9 &-]+', ranking_section, re.IGNORECASE)
             if numbered_matches:
                 # Extract just the "Response from..." part
-                return [re.search(r'Response from (?:the )?[a-z]+', m, re.IGNORECASE).group() for m in numbered_matches]
+                return [re.search(r'Response from [a-z][a-z0-9 &-]+', m, re.IGNORECASE).group().strip() for m in numbered_matches]
 
             # Fallback: Extract all "Response from..." patterns in order
-            matches = re.findall(r'Response from (?:the )?[a-z]+', ranking_section, re.IGNORECASE)
-            return matches
+            matches = re.findall(r'Response from [a-z][a-z0-9 &-]+', ranking_section, re.IGNORECASE)
+            return [m.strip() for m in matches]
 
     # Fallback: try to find any "Response from..." patterns in order
-    matches = re.findall(r'Response from (?:the )?[a-z]+', ranking_text, re.IGNORECASE)
-    return matches
+    matches = re.findall(r'Response from [a-z][a-z0-9 &-]+', ranking_text, re.IGNORECASE)
+    return [m.strip() for m in matches]
 
 
 def calculate_aggregate_rankings(

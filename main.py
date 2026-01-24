@@ -1,5 +1,5 @@
 def main():
-    print("Greetings from Prism.")
+    print("Greetings from Cipher.")
 
 
 if __name__ == "__main__":

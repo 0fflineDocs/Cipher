@@ -1,4 +1,4 @@
-"""Configuration for Prism."""
+"""Configuration for Cipher."""
 
 import os
 from dotenv import load_dotenv

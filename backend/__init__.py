@@ -1,1 +1,1 @@
-"""Prism backend package."""
+"""Cipher backend package."""

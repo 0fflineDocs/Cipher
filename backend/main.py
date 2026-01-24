@@ -1,4 +1,4 @@
-"""FastAPI backend for Prism."""
+"""FastAPI backend for Cipher."""
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,7 +13,7 @@ from . import storage
 from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
 from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name
 
-app = FastAPI(title="Prism API")
+app = FastAPI(title="Cipher API")
 
 # Enable CORS for local development
 app.add_middleware(
@@ -56,7 +56,7 @@ class Conversation(BaseModel):
 @app.get("/")
 async def root():
     """Health check endpoint."""
-    return {"status": "ok", "service": "Prism API"}
+    return {"status": "ok", "service": "Cipher API"}
 
 
 @app.get("/api/conversations", response_model=List[ConversationMetadata])

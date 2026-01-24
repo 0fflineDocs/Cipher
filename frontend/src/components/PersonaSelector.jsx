@@ -51,8 +51,6 @@ export default function PersonaSelector({
     if (!chairmen) return [];
     
     switch (activeCategory) {
-      case 'culture':
-        return chairmen.filter(c => c.name === 'Ozymandias' || c.name === 'Sage');
       case 'cybersecurity':
       case 'tech':
         return chairmen.filter(c => c.name === 'Strategic Principal' || c.name === 'Technical Director');
@@ -82,12 +80,6 @@ export default function PersonaSelector({
             onClick={() => setActiveCategory('tech')}
           >
             Tech
-          </button>
-          <button
-            className={`category-tab ${activeCategory === 'culture' ? 'active' : ''}`}
-            onClick={() => setActiveCategory('culture')}
-          >
-            Culture
           </button>
         </div>
 

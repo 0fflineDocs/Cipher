@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Prism - Start script
+# Cipher - Start script
 
-echo "Starting Prism..."
+echo "Starting Cipher..."
 echo ""
 
 # Start backend
@@ -20,7 +20,7 @@ npm run dev &
 FRONTEND_PID=$!
 
 echo ""
-echo "✓ Prism is running!"
+echo "✓ Cipher is running!"
 echo "  Backend:  http://localhost:8001"
 echo "  Frontend: http://localhost:5173"
 echo ""

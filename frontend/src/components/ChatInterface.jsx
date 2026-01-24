@@ -135,7 +135,7 @@ export default function ChatInterface({
                 </div>
               ) : (
                 <div className="assistant-message">
-                  <div className="message-label">Prism</div>
+                  <div className="message-label">Cipher</div>
 
                   {/* Stage 1 */}
                   {msg.loading?.stage1 && (
