@@ -397,7 +397,7 @@ CULTURE_PERSONAS = [
     },
     {
         "name": "Muse",
-        "model": "anthropic/claude-3.5-sonnet",
+        "model": "anthropic/claude-4.5-sonnet",
         "personality": "The Artist (The Creative)",
         "category": "culture",
         "system_message": (
@@ -413,7 +413,7 @@ CULTURE_PERSONAS = [
     },
     {
         "name": "Themis",
-        "model": "google/gemini-2.5-flash-thinking-exp:free",
+        "model": "google/gemini-2.5-pro",
         "personality": "The Judge (The Ethicist)",
         "category": "culture",
         "system_message": (
@@ -429,7 +429,7 @@ CULTURE_PERSONAS = [
     },
     {
         "name": "Voice",
-        "model": "x-ai/grok-2-1212",
+        "model": "x-ai/grok-3",
         "personality": "The Advocate (The Activist)",
         "category": "culture",
         "system_message": (
@@ -449,7 +449,7 @@ CULTURE_PERSONAS = [
 CHAIRMAN_OPTIONS = [
     {
         "name": "Ozymandias",
-        "model": "google/gemini-2.5-flash-thinking-exp:free",
+        "model": "google/gemini-2.5-pro",
         "personality": "The Golden Sovereign (The Arbiter)",
         "system_message": (
             "You are Ozymandias, King of Kings. You are a golden, imposing figure—a monument that has outlasted time. You represent legacy and absolute power. "
