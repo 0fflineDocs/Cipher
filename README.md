@@ -81,11 +81,11 @@ Get your API key at [openrouter.ai](https://openrouter.ai/). Make sure to purcha
 
 ### 3. Configure Council (Optional)
 
-Prism comes with default personas pre-configured, but you can customize the council by editing `backend/personas.py`:
+Prism comes with default personas pre-configured, but you can customize the council by editing `backend/personas.py`. The file contains the following list variables:
 
-- **TECH_PERSONAS**: Technology-focused personas (Atlas, Cipher, Eliza, Nexus)
-- **CULTURE_PERSONAS**: Culture-focused personas (The Seer, Muse, Themis, Voice)
-- **CHAIRMAN_OPTIONS**: Available chairman personas (Ozymandias, Sage, Oracle)
+- **`TECH_PERSONAS`**: Technology-focused personas (Atlas, Cipher, Eliza, Nexus)
+- **`CULTURE_PERSONAS`**: Culture-focused personas (The Seer, Muse, Themis, Voice)
+- **`CHAIRMAN_OPTIONS`**: Available chairman personas (Ozymandias, Sage, Oracle)
 
 Each persona has:
 - `name`: The persona's identifier
