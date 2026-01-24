@@ -1,0 +1,199 @@
+.persona-selector {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.persona-selector h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.persona-selector-section {
+  margin-bottom: 24px;
+}
+
+.persona-selector-section:last-child {
+  margin-bottom: 0;
+}
+
+.persona-selector-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.category-tab {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+  margin-bottom: -2px;
+}
+
+.category-tab:hover {
+  color: #4a90e2;
+}
+
+.category-tab.active {
+  color: #4a90e2;
+  border-bottom-color: #4a90e2;
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.persona-card {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.persona-card:hover {
+  border-color: #4a90e2;
+  background: #f8fbff;
+}
+
+.persona-card.selected {
+  border-color: #4a90e2;
+  background: #e8f4ff;
+}
+
+.persona-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.persona-card.disabled:hover {
+  border-color: #e0e0e0;
+  background: white;
+}
+
+.persona-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.persona-personality {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.chairman-select {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chairman-option {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+  flex: 1;
+  min-width: 150px;
+}
+
+.chairman-option:hover {
+  border-color: #4a90e2;
+  background: #f8fbff;
+}
+
+.chairman-option.selected {
+  border-color: #4a90e2;
+  background: #e8f4ff;
+}
+
+.chairman-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.chairman-personality {
+  font-size: 12px;
+  color: #666;
+}
+
+.selection-count {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.selection-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-reset {
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.btn-reset:hover {
+  border-color: #999;
+  color: #333;
+}
+
+.btn-confirm {
+  padding: 8px 16px;
+  background: #4a90e2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+
+.btn-confirm:hover {
+  background: #357abd;
+}
+
+.btn-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
