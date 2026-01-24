@@ -11,6 +11,7 @@ import asyncio
 
 from . import storage
 from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
+from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name
 
 app = FastAPI(title="Prism API")
 
@@ -32,6 +33,8 @@ class CreateConversationRequest(BaseModel):
 class SendMessageRequest(BaseModel):
     """Request to send a message in a conversation."""
     content: str
+    council_members: List[str] = None  # List of persona names
+    chairman: str = None  # Chairman name
 
 
 class ConversationMetadata(BaseModel):
@@ -79,6 +82,16 @@ async def get_conversation(conversation_id: str):
     return conversation
 
 
+@app.get("/api/personas")
+async def get_personas():
+    """Get all available personas organized by category."""
+    personas_by_category = get_personas_by_category()
+    return {
+        "personas": personas_by_category,
+        "chairmen": get_all_chairmen()
+    }
+
+
 @app.post("/api/conversations/{conversation_id}/message")
 async def send_message(conversation_id: str, request: SendMessageRequest):
     """
@@ -101,9 +114,25 @@ async def send_message(conversation_id: str, request: SendMessageRequest):
         title = await generate_conversation_title(request.content)
         storage.update_conversation_title(conversation_id, title)
 
+    # Build council and chairman from request or use defaults
+    council_models = None
+    chairman_config = None
+    
+    if request.council_members:
+        council_models = []
+        for name in request.council_members:
+            persona = get_persona_by_name(name)
+            if persona:
+                council_models.append(persona)
+    
+    if request.chairman:
+        chairman_config = get_chairman_by_name(request.chairman)
+
     # Run the 3-stage council process
     stage1_results, stage2_results, stage3_result, metadata = await run_full_council(
-        request.content
+        request.content,
+        council_models,
+        chairman_config
     )
 
     # Add assistant message with all stages
@@ -147,20 +176,38 @@ async def send_message_stream(conversation_id: str, request: SendMessageRequest)
             if is_first_message:
                 title_task = asyncio.create_task(generate_conversation_title(request.content))
 
+            # Build council and chairman from request or use defaults
+            council_models = None
+            chairman_config = None
+            
+            if request.council_members:
+                council_models = []
+                for name in request.council_members:
+                    persona = get_persona_by_name(name)
+                    if persona:
+                        council_models.append(persona)
+            
+            if request.chairman:
+                chairman_config = get_chairman_by_name(request.chairman)
+
             # Stage 1: Collect responses
             yield f"data: {json.dumps({'type': 'stage1_start'})}\n\n"
-            stage1_results = await stage1_collect_responses(request.content)
+            stage1_results = await stage1_collect_responses(request.content, council_models)
             yield f"data: {json.dumps({'type': 'stage1_complete', 'data': stage1_results})}\n\n"
 
             # Stage 2: Collect rankings
             yield f"data: {json.dumps({'type': 'stage2_start'})}\n\n"
-            stage2_results, label_to_model = await stage2_collect_rankings(request.content, stage1_results)
+            stage2_results, label_to_model = await stage2_collect_rankings(
+                request.content, stage1_results, council_models
+            )
             aggregate_rankings = calculate_aggregate_rankings(stage2_results, label_to_model)
             yield f"data: {json.dumps({'type': 'stage2_complete', 'data': stage2_results, 'metadata': {'label_to_model': label_to_model, 'aggregate_rankings': aggregate_rankings}})}\n\n"
 
             # Stage 3: Synthesize final answer
             yield f"data: {json.dumps({'type': 'stage3_start'})}\n\n"
-            stage3_result = await stage3_synthesize_final(request.content, stage1_results, stage2_results)
+            stage3_result = await stage3_synthesize_final(
+                request.content, stage1_results, stage2_results, chairman_config
+            )
             yield f"data: {json.dumps({'type': 'stage3_complete', 'data': stage3_result})}\n\n"
 
             # Wait for title generation if it was started

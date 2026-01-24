@@ -34,7 +34,7 @@ export const api = {
   },
 
   /**
-   * Get a specific conversation.
+   * Get conversation by id.
    */
   async getConversation(conversationId) {
     const response = await fetch(
@@ -47,9 +47,24 @@ export const api = {
   },
 
   /**
-   * Send a message in a conversation.
+   * Get available personas and chairmen.
    */
-  async sendMessage(conversationId, content) {
+  async getPersonas() {
+    const response = await fetch(`${API_BASE}/api/personas`);
+    if (!response.ok) {
+      throw new Error('Failed to get personas');
+    }
+    return response.json();
+  },
+
+  /**
+   * Send a message in a conversation.
+   * @param {string} conversationId - The conversation ID
+   * @param {string} content - The message content
+   * @param {Array<string>} councilMembers - Optional array of council member names
+   * @param {string} chairman - Optional chairman name
+   */
+  async sendMessage(conversationId, content, councilMembers = null, chairman = null) {
     const response = await fetch(
       `${API_BASE}/api/conversations/${conversationId}/message`,
       {
@@ -57,7 +72,11 @@ export const api = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ 
+          content,
+          council_members: councilMembers,
+          chairman: chairman
+        }),
       }
     );
     if (!response.ok) {
@@ -71,9 +90,11 @@ export const api = {
    * @param {string} conversationId - The conversation ID
    * @param {string} content - The message content
    * @param {function} onEvent - Callback function for each event: (eventType, data) => void
+   * @param {Array<string>} councilMembers - Optional array of council member names
+   * @param {string} chairman - Optional chairman name
    * @returns {Promise<void>}
    */
-  async sendMessageStream(conversationId, content, onEvent) {
+  async sendMessageStream(conversationId, content, onEvent, councilMembers = null, chairman = null) {
     const response = await fetch(
       `${API_BASE}/api/conversations/${conversationId}/message/stream`,
       {
@@ -81,7 +102,11 @@ export const api = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ 
+          content,
+          council_members: councilMembers,
+          chairman: chairman
+        }),
       }
     );
 

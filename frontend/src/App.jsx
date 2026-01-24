@@ -9,6 +9,14 @@ function App() {
   const [currentConversationId, setCurrentConversationId] = useState(null);
   const [currentConversation, setCurrentConversation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [personas, setPersonas] = useState(null);
+  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [selectedChairman, setSelectedChairman] = useState(null);
+
+  // Load personas on mount
+  useEffect(() => {
+    loadPersonas();
+  }, []);
 
   // Load conversations on mount
   useEffect(() => {
@@ -21,6 +29,36 @@ function App() {
       loadConversation(currentConversationId);
     }
   }, [currentConversationId]);
+
+  const loadPersonas = async () => {
+    try {
+      const data = await api.getPersonas();
+      setPersonas(data);
+      
+      // Set default selections
+      if (data.personas && data.chairmen && data.chairmen.length > 0) {
+        const defaultMembers = [];
+        
+        // Add up to 3 tech personas
+        if (data.personas.tech && data.personas.tech.length > 0) {
+          const techCount = Math.min(3, data.personas.tech.length);
+          for (let i = 0; i < techCount; i++) {
+            defaultMembers.push(data.personas.tech[i].name);
+          }
+        }
+        
+        // Add 1 culture persona if available
+        if (data.personas.culture && data.personas.culture.length > 0) {
+          defaultMembers.push(data.personas.culture[0].name);
+        }
+        
+        setSelectedMembers(defaultMembers);
+        setSelectedChairman(data.chairmen[0].name);
+      }
+    } catch (error) {
+      console.error('Failed to load personas:', error);
+    }
+  };
 
   const loadConversations = async () => {
     try {
@@ -90,9 +128,12 @@ function App() {
       }));
 
       // Send message with streaming
-      await api.sendMessageStream(currentConversationId, content, (eventType, event) => {
-        switch (eventType) {
-          case 'stage1_start':
+      await api.sendMessageStream(
+        currentConversationId, 
+        content, 
+        (eventType, event) => {
+          switch (eventType) {
+            case 'stage1_start':
             setCurrentConversation((prev) => {
               const messages = [...prev.messages];
               const lastMsg = messages[messages.length - 1];
@@ -169,7 +210,10 @@ function App() {
           default:
             console.log('Unknown event type:', eventType);
         }
-      });
+      },
+      selectedMembers,
+      selectedChairman
+      );
     } catch (error) {
       console.error('Failed to send message:', error);
       // Remove optimistic messages on error
@@ -193,6 +237,13 @@ function App() {
         conversation={currentConversation}
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
+        personas={personas}
+        selectedMembers={selectedMembers}
+        selectedChairman={selectedChairman}
+        onSelectionChange={(members, chairman) => {
+          setSelectedMembers(members);
+          setSelectedChairman(chairman);
+        }}
       />
     </div>
   );

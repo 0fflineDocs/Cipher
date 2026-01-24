@@ -3,12 +3,17 @@ import ReactMarkdown from 'react-markdown';
 import Stage1 from './Stage1';
 import Stage2 from './Stage2';
 import Stage3 from './Stage3';
+import PersonaSelector from './PersonaSelector';
 import './ChatInterface.css';
 
 export default function ChatInterface({
   conversation,
   onSendMessage,
   isLoading,
+  personas,
+  selectedMembers,
+  selectedChairman,
+  onSelectionChange,
 }) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -68,6 +73,9 @@ export default function ChatInterface({
     );
   }
 
+  // Show persona selector if this is a new conversation with no messages
+  const showPersonaSelector = conversation.messages.length === 0 && personas;
+
   return (
     <div className="chat-interface">
       {conversation.messages.length > 0 && (
@@ -80,8 +88,19 @@ export default function ChatInterface({
           <div className="empty-chat">
             <div className="empty-state">
               <h2>Consult the Council</h2>
-              <p>Ask a question to consult Prism</p>
+              <p>Select your council members and ask a question</p>
             </div>
+            
+            {showPersonaSelector && (
+              <PersonaSelector
+                personas={personas.personas}
+                chairmen={personas.chairmen}
+                selectedMembers={selectedMembers}
+                selectedChairman={selectedChairman}
+                onSelectionChange={onSelectionChange}
+              />
+            )}
+            
             <form className="input-form" onSubmit={handleSubmit}>
               <textarea
                 ref={textareaRef}
