@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './MembersView.css';
 
 export default function MembersView({ personas, chairmen }) {
   const [activeCategory, setActiveCategory] = useState('tech');
   const [selectedPersona, setSelectedPersona] = useState(null);
+
+  // Auto-select first persona if none selected
+  useEffect(() => {
+    if (!selectedPersona && personas && personas.tech && personas.tech.length > 0) {
+      setSelectedPersona({ ...personas.tech[0], category: 'tech' });
+    }
+  }, [personas, selectedPersona]);
 
   if (!personas || !chairmen) {
     return (
@@ -16,11 +23,6 @@ export default function MembersView({ personas, chairmen }) {
 
   // Get current category personas
   const currentPersonas = personas[activeCategory] || [];
-
-  // Auto-select first persona if none selected
-  if (!selectedPersona && currentPersonas.length > 0) {
-    setSelectedPersona({ ...currentPersonas[0], category: activeCategory });
-  }
 
   const handlePersonaClick = (persona, category) => {
     setSelectedPersona({ ...persona, category });
