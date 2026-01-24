@@ -33,13 +33,23 @@ export default function PersonaSelector({
 
   const handleReset = () => {
     // Default selection: first 3 from tech, first from culture
-    const defaultMembers = [
-      personas.tech[0].name,
-      personas.tech[1].name,
-      personas.tech[2].name,
-      personas.culture[0].name,
-    ];
-    onSelectionChange(defaultMembers, chairmen[0].name);
+    const defaultMembers = [];
+    
+    // Add up to 3 tech personas
+    if (personas.tech && personas.tech.length > 0) {
+      const techCount = Math.min(3, personas.tech.length);
+      for (let i = 0; i < techCount; i++) {
+        defaultMembers.push(personas.tech[i].name);
+      }
+    }
+    
+    // Add 1 culture persona if available
+    if (personas.culture && personas.culture.length > 0) {
+      defaultMembers.push(personas.culture[0].name);
+    }
+    
+    const defaultChairman = chairmen && chairmen.length > 0 ? chairmen[0].name : selectedChairman;
+    onSelectionChange(defaultMembers, defaultChairman);
   };
 
   const currentPersonas = personas[activeCategory] || [];
@@ -99,7 +109,7 @@ export default function PersonaSelector({
       <div className="persona-selector-section">
         <h4>Chairman</h4>
         <div className="chairman-select">
-          {chairmen.map((chairman) => (
+          {chairmen && chairmen.map((chairman) => (
             <div
               key={chairman.name}
               className={`chairman-option ${
