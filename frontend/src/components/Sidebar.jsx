@@ -6,6 +6,8 @@ export default function Sidebar({
   currentConversationId,
   onSelectConversation,
   onNewConversation,
+  onViewMembers,
+  currentView,
 }) {
   return (
     <div className="sidebar">
@@ -13,6 +15,12 @@ export default function Sidebar({
         <h1 onClick={onNewConversation} style={{ cursor: 'pointer' }}>Prism</h1>
         <button className="new-conversation-btn" onClick={onNewConversation}>
           + New Conversation
+        </button>
+        <button 
+          className={`view-members-btn ${currentView === 'members' ? 'active' : ''}`}
+          onClick={onViewMembers}
+        >
+          👥 Council Members
         </button>
       </div>
 

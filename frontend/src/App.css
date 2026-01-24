@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-cyan: #00B8D4;
-  --atlas: #8B95A5;
-  --cipher: #00B8D4;
-  --eliza: #00B8D4;
-  --seer: #6B7280;
-  --ozymandias: #FFFFFF;
+  --primary-cyan: #A855F7;
+  --atlas: #A855F7;
+  --cipher: #A855F7;
+  --eliza: #A855F7;
+  --seer: #10B981;
+  --ozymandias: #F97316;
 }
 
 * {
@@ -18,7 +18,7 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: #0F1419;
+  background: #000000;
   color: #FFFFFF;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }

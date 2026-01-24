@@ -1,20 +1,20 @@
-/* Stage 3: The Arbiter's Synthesis - Minimalist Futuristic */
+/* Stage 3: The Arbiter's Synthesis - Modern Dark Theme */
 
 :root {
-  --primary-cyan: #00B8D4;
+  --primary-cyan: #F97316;
 }
 
 .stage3 {
   margin: 32px 0;
   padding: 24px;
-  background: #1A1F26;
+  background: #0A0A0A;
   border-radius: 8px;
-  border: 1px solid #00B8D4;
+  border: 1px solid #F97316;
 }
 
 .stage-title {
   margin: 0 0 24px 0;
-  color: #00B8D4;
+  color: #F97316;
   font-size: 1.5em;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
@@ -27,7 +27,7 @@
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #2A3038;
+  border-bottom: 1px solid #2A2A2A;
 }
 
 .synthesis-icon {
@@ -38,10 +38,10 @@
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  background: #1E2329;
+  background: #1A1A1A;
   margin-right: 12px;
   font-size: 1.25em;
-  border: 1px solid #00B8D4;
+  border: 1px solid #F97316;
 }
 
 .synthesis-name {
@@ -55,7 +55,7 @@
 .synthesis-role {
   font-family: 'Inter', sans-serif;
   font-size: 0.75em;
-  color: #6B7280;
+  color: #707070;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   display: block;
@@ -112,21 +112,21 @@
 }
 
 .markdown-content code {
-  background: #1E2329;
+  background: #1A1A1A;
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 0.875em;
-  color: #00B8D4;
+  color: #F97316;
 }
 
 .markdown-content pre {
-  background: #1E2329;
+  background: #1A1A1A;
   color: #FFFFFF;
   padding: 16px;
   border-radius: 6px;
   overflow-x: auto;
   margin: 16px 0;
-  border: 1px solid #2A3038;
+  border: 1px solid #2A2A2A;
 }
 
 .markdown-content pre code {
