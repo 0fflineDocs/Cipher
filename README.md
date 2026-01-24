@@ -1,4 +1,4 @@
-<img width="580" height="182" alt="image" src="https://github.com/user-attachments/assets/e39f335e-efb1-4643-8300-a0abce923b24" />
+<img width="522" height="158" alt="image" src="https://github.com/user-attachments/assets/ec92c476-bf41-402c-8a1f-69fbc9f35e99" />
 
 # Prism - Multi-LLM Council with Personas
 
