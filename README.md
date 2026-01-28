@@ -1,6 +1,6 @@
-<img width="522" height="158" alt="image" src="https://github.com/user-attachments/assets/ec92c476-bf41-402c-8a1f-69fbc9f35e99" />
-
 # Cipher - Multi-LLM Council with Personas
+
+<img width="728" height="527" alt="image" src="https://github.com/user-attachments/assets/747988d1-d2c9-4cf9-acbc-f0de44c44406" />
 
 ## Overview
 
