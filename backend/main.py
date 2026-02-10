@@ -11,7 +11,8 @@ import asyncio
 
 from . import storage
 from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
-from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name
+from .debate import collect_opening_statements, collect_round_responses, generate_verdict
+from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name, get_all_debate_personas, get_debate_persona_by_id
 
 app = FastAPI(title="Cipher API")
 
@@ -35,6 +36,11 @@ class SendMessageRequest(BaseModel):
     content: str
     council_members: List[str] = None  # List of persona names
     chairman: str = None  # Chairman name
+    # Debate mode fields
+    debater_for: str = None  # Debate persona ID for FOR side
+    debater_against: str = None  # Debate persona ID for AGAINST side
+    num_rounds: int = None  # Number of debate rounds
+    moderator: str = None  # Moderator/chairman name
 
 
 class ConversationMetadata(BaseModel):
@@ -89,6 +95,15 @@ async def get_personas():
     return {
         "personas": personas_by_category,
         "chairmen": get_all_chairmen()
+    }
+
+
+@app.get("/api/debate-personas")
+async def get_debate_personas():
+    """Get all available debate personas."""
+    return {
+        "debaters": get_all_debate_personas(),
+        "moderators": get_all_chairmen()
     }
 
 
@@ -166,7 +181,10 @@ async def send_message_stream(conversation_id: str, request: SendMessageRequest)
     # Check if this is the first message
     is_first_message = len(conversation["messages"]) == 0
 
-    async def event_generator():
+    is_debate = request.debater_for is not None and request.debater_against is not None
+
+    async def council_event_generator():
+        """Handle council mode - 3-stage deliberation process."""
         try:
             # Add user message
             storage.add_user_message(conversation_id, request.content)
@@ -230,6 +248,74 @@ async def send_message_stream(conversation_id: str, request: SendMessageRequest)
         except Exception as e:
             # Send error event
             yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    async def debate_event_generator():
+        """Handle debate mode - two personas debate FOR vs AGAINST."""
+        try:
+            # Add user message (the debate topic)
+            storage.add_user_message(conversation_id, request.content)
+
+            # Start title generation in parallel
+            title_task = None
+            if is_first_message:
+                title_task = asyncio.create_task(generate_conversation_title(request.content))
+
+            num_rounds = request.num_rounds or 3
+            moderator_name = request.moderator
+
+            # Resolve debate personas by ID
+            for_persona = get_debate_persona_by_id(request.debater_for)
+            against_persona = get_debate_persona_by_id(request.debater_against)
+
+            if not for_persona or not against_persona:
+                yield f"data: {json.dumps({'type': 'error', 'message': 'Invalid debate persona ID(s)'})}\n\n"
+                return
+
+            # Assign sides
+            debaters = [
+                {**for_persona, "side": "for"},
+                {**against_persona, "side": "against"},
+            ]
+
+            # Opening statements
+            yield f"data: {json.dumps({'type': 'openings_start'})}\n\n"
+            openings = await collect_opening_statements(request.content, debaters)
+            yield f"data: {json.dumps({'type': 'openings_complete', 'data': openings})}\n\n"
+
+            # Debate rounds
+            rounds = []
+            previous = openings
+            for round_num in range(1, num_rounds + 1):
+                yield f"data: {json.dumps({'type': 'round_start', 'round': round_num})}\n\n"
+                round_responses = await collect_round_responses(request.content, debaters, previous, round_num)
+                rounds.append(round_responses)
+                yield f"data: {json.dumps({'type': 'round_complete', 'round': round_num, 'data': round_responses})}\n\n"
+                previous = round_responses
+
+            # Optional moderator verdict
+            verdict = None
+            if moderator_name:
+                yield f"data: {json.dumps({'type': 'verdict_start'})}\n\n"
+                moderator = get_chairman_by_name(moderator_name)
+                if moderator:
+                    verdict = await generate_verdict(request.content, openings, rounds, moderator)
+                    yield f"data: {json.dumps({'type': 'verdict_complete', 'data': verdict})}\n\n"
+
+            # Wait for title
+            if title_task:
+                title = await title_task
+                storage.update_conversation_title(conversation_id, title)
+                yield f"data: {json.dumps({'type': 'title_complete', 'data': {'title': title}})}\n\n"
+
+            # Save debate message
+            storage.add_debate_message(conversation_id, openings, rounds, verdict)
+
+            yield f"data: {json.dumps({'type': 'complete'})}\n\n"
+
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    event_generator = debate_event_generator if is_debate else council_event_generator
 
     return StreamingResponse(
         event_generator(),

@@ -1,4 +1,4 @@
-# Cipher - Multi-LLM Council with Personas
+# Cipher - Multi-LLM Council & Debate Arena
 
 <img width="728" height="527" alt="image" src="https://github.com/user-attachments/assets/747988d1-d2c9-4cf9-acbc-f0de44c44406" />
 
@@ -7,6 +7,8 @@
 Cipher transforms how you interact with AI by harnessing the collective intelligence of multiple Large Language Models, each embodying a unique persona. Rather than querying a single LLM provider (OpenAI GPT, Google Gemini, Anthropic Claude, xAI Grok, etc.), Cipher lets you assemble your own council of AI personas—each with distinct personalities, perspectives, and roles—to collaboratively answer your questions.
 
 This local web application provides a ChatGPT-like interface that uses OpenRouter to distribute your query across multiple LLMs with custom personas. The personas then engage in an anonymized peer review process, critically evaluating each other's responses before a designated Chairman persona synthesizes their insights into a comprehensive final answer.
+
+Cipher also features a **Debate Mode** where two mythological personas face off in a structured FOR vs AGAINST debate on any topic, with optional moderator verdicts.
 
 ## Persona System
 
@@ -43,16 +45,37 @@ Technical implementation, architecture, and operational support:
 | Threat & Detection Specialist | Tech | x-ai/grok-3 |
 | Technical Director | Tech & Chairman | google/gemini-2.5-pro |
 
+### Debate Personas
+
+Debate Mode features its own roster of mythological debaters, each with a distinct rhetorical style:
+
+| Persona | Icon | Style | Model |
+|---|---|---|---|
+| Apollo | ☀️ | The Logical — structured analysis, evidence, formal reasoning | openai/gpt-4.1 |
+| Prometheus | 🔥 | The Passionate — emotional appeals, vivid imagery, urgency | google/gemini-2.5-pro |
+| Athena | 🦉 | The Pragmatist — real-world feasibility, cost-benefit, implementation | anthropic/claude-sonnet-4 |
+| Loki | 🐍 | The Devil's Advocate — contrarian thinking, hidden flaws, paradoxes | x-ai/grok-3 |
+
 ## How It Works
 
-### Stage 1: Individual Responses
+### Council Mode
+
+#### Stage 1: Individual Responses
 Your query is sent to all selected council members simultaneously. Each persona generates its own response following their unique perspective and protocol, which you can explore through an intuitive tab view interface.
 
-### Stage 2: Anonymized Peer Review
+#### Stage 2: Anonymized Peer Review
 Each persona receives all responses with identities anonymized (as "Response A", "Response B", etc.). This prevents bias and ensures fair evaluation. Each member ranks the responses based on quality, accuracy, and insight. You can view both the raw evaluations and the extracted rankings.
 
-### Stage 3: Chairman Synthesis
+#### Stage 3: Chairman Synthesis
 The designated Chairman persona reviews all original responses and peer evaluations. Drawing from this collective intelligence and their unique perspective, the Chairman crafts a refined, comprehensive answer that represents the best insights from your council.
+
+### Debate Mode
+
+1. **Pick Sides**: Choose one debater for the **FOR** position (left, blue) and one for **AGAINST** (right, red) from the 4 mythological personas
+2. **Set Rounds**: Configure 1–5 rounds of back-and-forth argumentation
+3. **Optional Moderator**: Select a chairman to deliver a final verdict
+4. **Enter a Topic**: Pose any debatable question or statement
+5. **Watch the Debate**: Opening statements stream in side-by-side, followed by rounds where each debater responds to their opponent's arguments, ending with an optional moderator verdict
 
 ## Why Cipher?
 
@@ -60,6 +83,7 @@ The designated Chairman persona reviews all original responses and peer evaluati
 - **Quality Control**: Anonymized peer review ensures unbiased evaluation of responses
 - **Transparency**: View individual responses, peer evaluations, and aggregate rankings
 - **Customizable Council**: Select up to 6 council members from Tech and Cybersecurity categories
+- **Debate Arena**: Pit two mythological AI personas against each other in structured FOR vs AGAINST debates
 - **Persona Details**: Explore each persona's personality, role, and system prompt
 - **Local Control**: Run everything locally with full control over your data and persona selection
 
@@ -100,6 +124,7 @@ Cipher comes with default personas pre-configured, but you can customize the cou
 - **`CYBERSECURITY_PERSONAS`**: Security-focused personas (Security Architect, Strategic Advisory, Cybersecurity Research, Business Risk & Compliance)
 - **`TECH_PERSONAS`**: Technology-focused personas (Solutions Architecture Specialist, Tech Support Specialist, Implementation Specialist, Threat & Detection Specialist)
 - **`CHAIRMAN_OPTIONS`**: Available chairman personas (Strategic Principal, Technical Director)
+- **`DEBATE_PERSONAS`**: Mythological debate personas (Apollo, Prometheus, Athena, Loki)
 
 Each persona has:
 - `name`: The persona's identifier
@@ -151,8 +176,13 @@ npm run dev
    - View their personalities, roles, and system prompts
    - Switch between Cybersecurity and Tech categories
    - Chairmen appear within their respective categories with orange accent color
-4. **Ask a question**: Type your query in the chat interface
-5. **Explore responses**:
+4. **Start a debate** (optional):
+   - Click "⚔️ Debate Mode" in the sidebar
+   - Pick a FOR debater (left/blue) and an AGAINST debater (right/red)
+   - Set number of rounds and optional moderator
+   - Enter a debate topic and watch the arguments unfold
+5. **Ask a question**: Type your query in the chat interface
+6. **Explore responses**:
    - **Stage 1**: View individual responses from each council member
    - **Stage 2**: See peer evaluations and aggregate rankings
    - **Stage 3**: Read the Chairman's synthesized final answer
@@ -161,6 +191,8 @@ npm run dev
 
 - **Interactive Chat Interface**: Clean, modern UI similar to ChatGPT
 - **Three-Stage Deliberation**: Individual responses → Peer review → Final synthesis
+- **Debate Arena**: FOR vs AGAINST structured debates with mythological personas
+- **Side-by-Side Debate View**: Blue (FOR) and red (AGAINST) columns with real-time streaming
 - **Persona System**: Rich personalities with unique perspectives and response protocols
 - **Council Customization**: Select and configure council members via UI
 - **Members Explorer**: Browse all personas, view their prompts and personalities

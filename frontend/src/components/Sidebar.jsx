@@ -7,6 +7,7 @@ export default function Sidebar({
   onSelectConversation,
   onNewConversation,
   onViewMembers,
+  onViewDebateSetup,
   currentView,
 }) {
   return (
@@ -15,6 +16,12 @@ export default function Sidebar({
         <h1 onClick={onNewConversation} style={{ cursor: 'pointer' }}>Cipher</h1>
         <button className="new-conversation-btn" onClick={onNewConversation}>
           + New Conversation
+        </button>
+        <button 
+          className={`view-debate-btn ${currentView === 'debate-setup' || currentView === 'debate' ? 'active' : ''}`}
+          onClick={onViewDebateSetup}
+        >
+          ⚔️ Debate Mode
         </button>
         <button 
           className={`view-members-btn ${currentView === 'members' ? 'active' : ''}`}

@@ -92,9 +92,31 @@ export const api = {
    * @param {function} onEvent - Callback function for each event: (eventType, data) => void
    * @param {Array<string>} councilMembers - Optional array of council member names
    * @param {string} chairman - Optional chairman name
+   * @param {object} options - Optional debate mode options
    * @returns {Promise<void>}
    */
-  async sendMessageStream(conversationId, content, onEvent, councilMembers = null, chairman = null) {
+  async sendMessageStream(conversationId, content, onEvent, councilMembers = null, chairman = null, options = {}) {
+    const {
+      debaterFor = null,
+      debaterAgainst = null,
+      moderator = null,
+      numRounds = 3,
+    } = options;
+
+    const body = { 
+      content,
+      council_members: councilMembers,
+      chairman: chairman,
+    };
+
+    // Add debate fields if debate personas are provided
+    if (debaterFor && debaterAgainst) {
+      body.debater_for = debaterFor;
+      body.debater_against = debaterAgainst;
+      body.num_rounds = numRounds;
+      if (moderator) body.moderator = moderator;
+    }
+
     const response = await fetch(
       `${API_BASE}/api/conversations/${conversationId}/message/stream`,
       {
@@ -102,11 +124,7 @@ export const api = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          content,
-          council_members: councilMembers,
-          chairman: chairman
-        }),
+        body: JSON.stringify(body),
       }
     );
 

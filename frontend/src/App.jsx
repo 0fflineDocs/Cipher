@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ChatInterface from './components/ChatInterface';
 import MembersView from './components/MembersView';
+import DebateSetup from './components/DebateSetup';
+import DebateView from './components/DebateView';
 import { api } from './api';
 import './App.css';
 
@@ -14,6 +16,8 @@ function App() {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedChairman, setSelectedChairman] = useState(null);
   const [currentView, setCurrentView] = useState('chat');
+  const [debateState, setDebateState] = useState(null);
+  const [debateConfig, setDebateConfig] = useState(null);
 
   // Load personas on mount
   useEffect(() => {
@@ -93,6 +97,119 @@ function App() {
 
   const handleViewMembers = () => {
     setCurrentView('members');
+  };
+
+  const handleViewDebateSetup = () => {
+    setCurrentView('debate-setup');
+  };
+
+  const handleStartDebate = async (config) => {
+    // Create a new conversation for the debate
+    try {
+      const newConv = await api.createConversation();
+      setConversations([
+        { id: newConv.id, created_at: newConv.created_at, title: 'New Conversation', message_count: 0 },
+        ...conversations,
+      ]);
+      setCurrentConversationId(newConv.id);
+      setCurrentConversation(newConv);
+      setDebateConfig(config);
+      setCurrentView('debate');
+    } catch (error) {
+      console.error('Failed to create debate conversation:', error);
+    }
+  };
+
+  const handleDebateMessage = async (content) => {
+    if (!currentConversationId || !debateConfig) return;
+
+    setIsLoading(true);
+
+    // Optimistically add user message
+    const userMessage = { role: 'user', content };
+    setCurrentConversation((prev) => ({
+      ...prev,
+      messages: [...prev.messages, userMessage],
+    }));
+
+    setDebateState({ phase: 'openings', openings: null, rounds: [], round: 0 });
+
+    try {
+      await api.sendMessageStream(
+        currentConversationId,
+        content,
+        (eventType, event) => {
+          switch (eventType) {
+            case 'openings_start':
+              setDebateState((prev) => ({ ...prev, phase: 'openings' }));
+              break;
+
+            case 'openings_complete':
+              setDebateState((prev) => ({
+                ...prev,
+                openings: event.data,
+                phase: 'round',
+              }));
+              break;
+
+            case 'round_start':
+              setDebateState((prev) => ({
+                ...prev,
+                phase: 'round',
+                round: event.round,
+              }));
+              break;
+
+            case 'round_complete':
+              setDebateState((prev) => ({
+                ...prev,
+                rounds: [...prev.rounds, event.data],
+              }));
+              break;
+
+            case 'verdict_start':
+              setDebateState((prev) => ({ ...prev, phase: 'verdict' }));
+              break;
+
+            case 'verdict_complete':
+              setDebateState((prev) => ({ ...prev, verdict: event.data }));
+              break;
+
+            case 'title_complete':
+              loadConversations();
+              break;
+
+            case 'complete':
+              loadConversation(currentConversationId);
+              setDebateState(null);
+              setIsLoading(false);
+              loadConversations();
+              break;
+
+            case 'error':
+              console.error('Debate stream error:', event.message);
+              setDebateState(null);
+              setIsLoading(false);
+              break;
+
+            default:
+              console.log('Unknown debate event:', eventType);
+          }
+        },
+        null,
+        null,
+        {
+          debaterFor: debateConfig.debaterFor,
+          debaterAgainst: debateConfig.debaterAgainst,
+          moderator: debateConfig.moderator,
+          numRounds: debateConfig.numRounds || 3,
+        }
+      );
+    } catch (error) {
+      console.error('Failed to run debate:', error);
+      setDebateState(null);
+      setIsLoading(false);
+    }
   };
 
   const handleSendMessage = async (content) => {
@@ -233,12 +350,27 @@ function App() {
         onSelectConversation={handleSelectConversation}
         onNewConversation={handleNewConversation}
         onViewMembers={handleViewMembers}
+        onViewDebateSetup={handleViewDebateSetup}
         currentView={currentView}
       />
       {currentView === 'members' ? (
         <MembersView 
           personas={personas?.personas} 
           chairmen={personas?.chairmen}
+        />
+      ) : currentView === 'debate-setup' ? (
+        <DebateSetup
+          chairmen={personas?.chairmen}
+          onStartDebate={handleStartDebate}
+          onBack={() => setCurrentView('chat')}
+        />
+      ) : currentView === 'debate' ? (
+        <DebateView
+          conversation={currentConversation}
+          onSendMessage={handleDebateMessage}
+          isLoading={isLoading}
+          debateState={debateState}
+          debateConfig={debateConfig}
         />
       ) : (
         <ChatInterface
