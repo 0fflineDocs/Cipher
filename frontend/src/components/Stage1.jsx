@@ -2,14 +2,8 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './Stage1.css';
 
-// Council member emoji icons
-const councilIcons = {
-  'Atlas': '🏛️',
-  'Eris': '⚡',
-  'Pythia': '🔮',
-  'Prometheus': '🔥',
-  'Nemesis': '⚖️'
-};
+// Council member icons (unused legacy mapping)
+const councilIcons = {};
 
 export default function Stage1({ responses }) {
   const [activeTab, setActiveTab] = useState(0);

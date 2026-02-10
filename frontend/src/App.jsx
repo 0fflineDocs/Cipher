@@ -4,6 +4,7 @@ import ChatInterface from './components/ChatInterface';
 import MembersView from './components/MembersView';
 import DebateSetup from './components/DebateSetup';
 import DebateView from './components/DebateView';
+import DebateMembersView from './components/DebateMembersView';
 import { api } from './api';
 import './App.css';
 
@@ -101,6 +102,10 @@ function App() {
 
   const handleViewDebateSetup = () => {
     setCurrentView('debate-setup');
+  };
+
+  const handleViewDebateMembers = () => {
+    setCurrentView('debate-members');
   };
 
   const handleStartDebate = async (config) => {
@@ -351,6 +356,7 @@ function App() {
         onNewConversation={handleNewConversation}
         onViewMembers={handleViewMembers}
         onViewDebateSetup={handleViewDebateSetup}
+        onViewDebateMembers={handleViewDebateMembers}
         currentView={currentView}
       />
       {currentView === 'members' ? (
@@ -358,9 +364,12 @@ function App() {
           personas={personas?.personas} 
           chairmen={personas?.chairmen}
         />
+      ) : currentView === 'debate-members' ? (
+        <DebateMembersView
+          onBack={() => setCurrentView('chat')}
+        />
       ) : currentView === 'debate-setup' ? (
         <DebateSetup
-          chairmen={personas?.chairmen}
           onStartDebate={handleStartDebate}
           onBack={() => setCurrentView('chat')}
         />

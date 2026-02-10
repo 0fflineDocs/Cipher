@@ -37,7 +37,7 @@ async def collect_opening_statements(
         debaters: List of debater configs with name, model, system_message, side
 
     Returns:
-        List of opening statements: [{persona, model, side, icon, content}, ...]
+        List of opening statements: [{persona, model, side, content}, ...]
     """
     async def get_opening(debater: Dict[str, Any]) -> Dict[str, Any]:
         system_message = build_side_system_message(debater, debater["side"], topic)
@@ -59,7 +59,6 @@ async def collect_opening_statements(
             "persona_id": debater.get("id", ""),
             "model": debater["model"],
             "side": debater["side"],
-            "icon": debater.get("icon", ""),
             "title": debater.get("title", ""),
             "content": result["content"] if result else "Failed to generate opening statement."
         }
@@ -84,7 +83,7 @@ async def collect_round_responses(
         round_number: Current round (1-indexed)
 
     Returns:
-        List of round responses: [{persona, model, side, icon, content}, ...]
+        List of round responses: [{persona, model, side, content}, ...]
     """
     async def get_response(debater: Dict[str, Any], opponent_statements: List[Dict[str, Any]]) -> Dict[str, Any]:
         system_message = build_side_system_message(debater, debater["side"], topic)
@@ -115,7 +114,6 @@ async def collect_round_responses(
             "persona_id": debater.get("id", ""),
             "model": debater["model"],
             "side": debater["side"],
-            "icon": debater.get("icon", ""),
             "title": debater.get("title", ""),
             "content": result["content"] if result else "Failed to generate response."
         }

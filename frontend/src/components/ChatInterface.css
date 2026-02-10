@@ -220,8 +220,7 @@
 }
 
 .final-response-header::before {
-  content: '⚖️';
-  font-size: 1.2em;
+  content: '';
 }
 
 .markdown-content {

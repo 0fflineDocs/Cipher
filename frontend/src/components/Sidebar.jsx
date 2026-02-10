@@ -8,6 +8,7 @@ export default function Sidebar({
   onNewConversation,
   onViewMembers,
   onViewDebateSetup,
+  onViewDebateMembers,
   currentView,
 }) {
   return (
@@ -21,13 +22,19 @@ export default function Sidebar({
           className={`view-debate-btn ${currentView === 'debate-setup' || currentView === 'debate' ? 'active' : ''}`}
           onClick={onViewDebateSetup}
         >
-          ⚔️ Debate Mode
+          Debate Mode
         </button>
         <button 
           className={`view-members-btn ${currentView === 'members' ? 'active' : ''}`}
           onClick={onViewMembers}
         >
-          👥 Council Members
+          Council Members
+        </button>
+        <button 
+          className={`view-debate-members-btn ${currentView === 'debate-members' ? 'active' : ''}`}
+          onClick={onViewDebateMembers}
+        >
+          Debate Members
         </button>
       </div>
 

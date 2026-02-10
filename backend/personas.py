@@ -581,7 +581,6 @@ DEBATE_PERSONAS = [
         "name": "Apollo",
         "title": "God of Reason",
         "style": "Logical Analyst",
-        "icon": "☀️",
         "model": "openai/gpt-4.1",
         "system_message": (
             "You are Apollo, the God of Reason. You debate with cold, structured logic. "
@@ -597,7 +596,6 @@ DEBATE_PERSONAS = [
         "name": "Prometheus",
         "title": "Titan of Conviction",
         "style": "Passionate Advocate",
-        "icon": "🔥",
         "model": "google/gemini-2.5-pro",
         "system_message": (
             "You are Prometheus, the Titan of Conviction. You debate with moral fire and passionate advocacy. "
@@ -613,7 +611,6 @@ DEBATE_PERSONAS = [
         "name": "Athena",
         "title": "Goddess of Strategy",
         "style": "Pragmatist",
-        "icon": "🦉",
         "model": "anthropic/claude-sonnet-4",
         "system_message": (
             "You are Athena, the Goddess of Strategy. You debate with strategic wisdom and pragmatic analysis. "
@@ -629,7 +626,6 @@ DEBATE_PERSONAS = [
         "name": "Loki",
         "title": "The Trickster",
         "style": "Devil's Advocate",
-        "icon": "🐍",
         "model": "x-ai/grok-3",
         "system_message": (
             "You are Loki, the Trickster. You debate by questioning everything and exposing hidden assumptions. "
@@ -653,4 +649,40 @@ def get_debate_persona_by_id(persona_id):
     for persona in DEBATE_PERSONAS:
         if persona["id"] == persona_id:
             return persona
+    return None
+
+
+# ── Debate Moderators ────────────────────────────────────────────────────────
+
+DEBATE_MODERATORS = [
+    {
+        "id": "themis",
+        "name": "Themis",
+        "title": "Titan of Justice",
+        "style": "Impartial Judge",
+        "model": "google/gemini-2.5-pro",
+        "system_message": (
+            "You are Themis, the Titan of Justice and Divine Law. You are the supreme moderator of debates. "
+            "You are completely impartial — you have no allegiance to either side. "
+            "You evaluate arguments based on: strength of evidence, logical consistency, "
+            "effectiveness of rebuttals, persuasiveness, and how well each side addressed their opponent's points. "
+            "You are fair, thorough, and specific. You reference actual arguments made during the debate. "
+            "You provide a structured verdict: summarize each side's strongest and weakest points, "
+            "assess the quality of engagement between the debaters, and declare a winner (or draw) with clear justification. "
+            "Your word is final and your reasoning is beyond reproach."
+        ),
+    },
+]
+
+
+def get_all_debate_moderators():
+    """Get all debate moderators."""
+    return DEBATE_MODERATORS
+
+
+def get_debate_moderator_by_id(moderator_id):
+    """Get a debate moderator by its id."""
+    for mod in DEBATE_MODERATORS:
+        if mod["id"] == moderator_id:
+            return mod
     return None

@@ -4,88 +4,75 @@
 
 ## Overview
 
-Cipher transforms how you interact with AI by harnessing the collective intelligence of multiple Large Language Models, each embodying a unique persona. Rather than querying a single LLM provider (OpenAI GPT, Google Gemini, Anthropic Claude, xAI Grok, etc.), Cipher lets you assemble your own council of AI personas—each with distinct personalities, perspectives, and roles—to collaboratively answer your questions.
+Cipher transforms how you interact with AI by harnessing the collective intelligence of multiple Large Language Models. Rather than querying a single LLM, Cipher offers two distinct modes:
 
-This local web application provides a ChatGPT-like interface that uses OpenRouter to distribute your query across multiple LLMs with custom personas. The personas then engage in an anonymized peer review process, critically evaluating each other's responses before a designated Chairman persona synthesizes their insights into a comprehensive final answer.
+- **Council Mode** — Assemble a council of AI personas with unique personalities and specializations. They independently respond to your query, anonymously peer-review each other's answers, and a Chairman synthesizes the best insights into a final response.
+- **Debate Mode** — Pit two mythological AI personas against each other in a structured FOR vs AGAINST debate, judged by an impartial moderator.
 
-Cipher also features a **Debate Mode** where two mythological personas face off in a structured FOR vs AGAINST debate on any topic, with optional moderator verdicts.
+Built as a local web application using OpenRouter for multi-model access.
 
-## Persona System
+---
 
-Cipher features a rich persona system where each AI council member has a distinct personality and role, organized into two categories:
+## Council Mode
 
-### Cybersecurity Category
-Strategic security expertise, risk assessment, and compliance guidance:
-- **Security Architect** - Zero Trust & defense expert
-- **Strategic Advisory** - Roadmaps & SWOT analysis
-- **Cybersecurity Research** - Threat intel & frameworks
-- **Business Risk & Compliance** - GDPR, NIS2, DORA, ISO expert
-- **Strategic Principal** (Chairman) - Executive strategist for cybersecurity initiatives
+### How It Works
 
-### Tech Category
-Technical implementation, architecture, and operational support:
-- **Solutions Architecture Specialist** - Architectural problem-solver for cross-service analysis
-- **Tech Support Specialist** - Systematic troubleshooter with step-by-step diagnostic guidance
-- **Implementation Specialist** - Operational feasibility expert for sustainable deployment
-- **Threat & Detection Specialist** - Detection engineer specializing in MITRE ATT&CK
-- **Technical Director** (Chairman) - Operational synthesizer for implementation guidance
+1. **Stage 1 — Individual Responses**: Your query is sent to all selected council members simultaneously. Each persona generates its own response from their unique perspective, viewable in a tab interface.
+2. **Stage 2 — Anonymized Peer Review**: All responses are redistributed with identities hidden (Response A, B, C...). Each member ranks and evaluates the others, ensuring unbiased assessment. View raw evaluations and aggregate rankings.
+3. **Stage 3 — Chairman Synthesis**: The Chairman reviews all responses and peer evaluations, then crafts a refined final answer representing the council's best insights.
 
-### Council Members & Models
+### Council Personas
 
-| Persona Name | Category | Model |
+Organized into two categories:
+
+**Cybersecurity** — Strategic security expertise, risk assessment, and compliance:
+
+| Persona | Role | Model |
 |---|---|---|
-| Security Architect | Cybersecurity | x-ai/grok-3 |
-| Strategic Advisory | Cybersecurity | anthropic/claude-sonnet-4 |
-| Cybersecurity Research | Cybersecurity | openai/gpt-4.1 |
-| Business Risk & Compliance | Cybersecurity | google/gemini-2.5-pro |
-| Strategic Principal | Cybersecurity & Chairman | google/gemini-2.5-pro |
-| Solutions Architecture Specialist | Tech | openai/gpt-4.1 |
-| Tech Support Specialist | Tech | google/gemini-2.5-pro |
-| Implementation Specialist | Tech | anthropic/claude-sonnet-4 |
-| Threat & Detection Specialist | Tech | x-ai/grok-3 |
-| Technical Director | Tech & Chairman | google/gemini-2.5-pro |
+| Security Architect | Zero Trust & defense expert | x-ai/grok-3 |
+| Strategic Advisory | Roadmaps & SWOT analysis | anthropic/claude-sonnet-4 |
+| Cybersecurity Research | Threat intel & frameworks | openai/gpt-4.1 |
+| Business Risk & Compliance | GDPR, NIS2, DORA, ISO expert | google/gemini-2.5-pro |
+| Strategic Principal (Chairman) | Executive strategist | google/gemini-2.5-pro |
+
+**Tech** — Technical implementation, architecture, and operational support:
+
+| Persona | Role | Model |
+|---|---|---|
+| Solutions Architecture Specialist | Cross-service architectural analysis | openai/gpt-4.1 |
+| Tech Support Specialist | Step-by-step diagnostic troubleshooter | google/gemini-2.5-pro |
+| Implementation Specialist | Operational feasibility & deployment | anthropic/claude-sonnet-4 |
+| Threat & Detection Specialist | MITRE ATT&CK detection engineer | x-ai/grok-3 |
+| Technical Director (Chairman) | Operational synthesizer | google/gemini-2.5-pro |
+
+---
+
+## Debate Mode
+
+### How It Works
+
+1. **Pick Sides** — Choose one debater for the **FOR** position (left, blue) and one for **AGAINST** (right, red)
+2. **Set Rounds** — Configure 1–5 rounds of back-and-forth argumentation
+3. **Select Moderator** — Optionally select Themis to deliver a structured verdict
+4. **Enter a Topic** — Pose any debatable question or statement
+5. **Watch the Debate** — Opening statements stream in side-by-side, followed by rounds where each debater rebuts their opponent, ending with the moderator's verdict
 
 ### Debate Personas
 
-Debate Mode features its own roster of mythological debaters, each with a distinct rhetorical style:
+Four mythological debaters, each with a distinct rhetorical style:
 
-| Persona | Icon | Style | Model |
+| Persona | Title | Style | Model |
 |---|---|---|---|
-| Apollo | ☀️ | The Logical — structured analysis, evidence, formal reasoning | openai/gpt-4.1 |
-| Prometheus | 🔥 | The Passionate — emotional appeals, vivid imagery, urgency | google/gemini-2.5-pro |
-| Athena | 🦉 | The Pragmatist — real-world feasibility, cost-benefit, implementation | anthropic/claude-sonnet-4 |
-| Loki | 🐍 | The Devil's Advocate — contrarian thinking, hidden flaws, paradoxes | x-ai/grok-3 |
+| Apollo | God of Reason | Logical — evidence, data, formal reasoning | openai/gpt-4.1 |
+| Prometheus | Titan of Conviction | Passionate — emotional appeals, moral framing, urgency | google/gemini-2.5-pro |
+| Athena | Goddess of Strategy | Pragmatist — feasibility, cost-benefit, implementation | anthropic/claude-sonnet-4 |
+| Loki | The Trickster | Devil's Advocate — contrarian, Socratic questioning, paradoxes | x-ai/grok-3 |
 
-## How It Works
+### Moderator
 
-### Council Mode
-
-#### Stage 1: Individual Responses
-Your query is sent to all selected council members simultaneously. Each persona generates its own response following their unique perspective and protocol, which you can explore through an intuitive tab view interface.
-
-#### Stage 2: Anonymized Peer Review
-Each persona receives all responses with identities anonymized (as "Response A", "Response B", etc.). This prevents bias and ensures fair evaluation. Each member ranks the responses based on quality, accuracy, and insight. You can view both the raw evaluations and the extracted rankings.
-
-#### Stage 3: Chairman Synthesis
-The designated Chairman persona reviews all original responses and peer evaluations. Drawing from this collective intelligence and their unique perspective, the Chairman crafts a refined, comprehensive answer that represents the best insights from your council.
-
-### Debate Mode
-
-1. **Pick Sides**: Choose one debater for the **FOR** position (left, blue) and one for **AGAINST** (right, red) from the 4 mythological personas
-2. **Set Rounds**: Configure 1–5 rounds of back-and-forth argumentation
-3. **Optional Moderator**: Select a chairman to deliver a final verdict
-4. **Enter a Topic**: Pose any debatable question or statement
-5. **Watch the Debate**: Opening statements stream in side-by-side, followed by rounds where each debater responds to their opponent's arguments, ending with an optional moderator verdict
-
-## Why Cipher?
-
-- **Diverse Perspectives**: Leverage personas with unique personalities and specialized viewpoints
-- **Quality Control**: Anonymized peer review ensures unbiased evaluation of responses
-- **Transparency**: View individual responses, peer evaluations, and aggregate rankings
-- **Customizable Council**: Select up to 6 council members from Tech and Cybersecurity categories
-- **Debate Arena**: Pit two mythological AI personas against each other in structured FOR vs AGAINST debates
-- **Persona Details**: Explore each persona's personality, role, and system prompt
-- **Local Control**: Run everything locally with full control over your data and persona selection
+| Persona | Title | Role | Model |
+|---|---|---|---|
+| Themis | Titan of Justice | Impartial judge — structured verdicts, evidence-based rulings | google/gemini-2.5-pro |
 
 ---
 
@@ -93,7 +80,7 @@ The designated Chairman persona reviews all original responses and peer evaluati
 
 ### 1. Install Dependencies
 
-The project uses [uv](https://docs.astral.sh/uv/) for project management.
+The project uses [uv](https://docs.astral.sh/uv/) for Python project management.
 
 **Backend:**
 ```bash
@@ -115,121 +102,71 @@ Create a `.env` file in the project root:
 OPENROUTER_API_KEY=sk-or-v1-...
 ```
 
-Get your API key at [openrouter.ai](https://openrouter.ai/). Make sure to purchase the credits you need, or sign up for automatic top up.
+Get your API key at [openrouter.ai](https://openrouter.ai/).
 
-### 3. Configure Council (Optional)
-
-Cipher comes with default personas pre-configured, but you can customize the council by editing `backend/personas.py`. The file contains the following list variables:
-
-- **`CYBERSECURITY_PERSONAS`**: Security-focused personas (Security Architect, Strategic Advisory, Cybersecurity Research, Business Risk & Compliance)
-- **`TECH_PERSONAS`**: Technology-focused personas (Solutions Architecture Specialist, Tech Support Specialist, Implementation Specialist, Threat & Detection Specialist)
-- **`CHAIRMAN_OPTIONS`**: Available chairman personas (Strategic Principal, Technical Director)
-- **`DEBATE_PERSONAS`**: Mythological debate personas (Apollo, Prometheus, Athena, Loki)
-
-Each persona has:
-- `name`: The persona's identifier
-- `model`: OpenRouter model identifier (e.g., "x-ai/grok-3", "anthropic/claude-sonnet-4")
-- `personality`: Brief description of their role
-- `category`: "cybersecurity" or "tech"
-- `system_message`: The prompt defining their behavior and response protocol
-
-Chairmen are integrated into their respective categories:
-- **Strategic Principal** appears in Cybersecurity
-- **Technical Director** appears in Tech
-
-You can also configure your council from the web interface using the persona selector.
-
-## Running the Application
+### 3. Run
 
 **Start both backend and frontend:**
 ```bash
 ./start.sh
 ```
 
-The application will be available at:
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:8001
 
-**Or run them separately:**
+**Or run separately:**
 
-Backend:
 ```bash
+# Backend
 uv run python -m backend.main
+
+# Frontend
+cd frontend && npm run dev
 ```
 
-Frontend:
-```bash
-cd frontend
-npm run dev
-```
+---
 
-## Using Cipher
+## Usage
 
-1. **Open the application** at http://localhost:5173
-2. **Configure your council** (optional):
-   - Click the settings icon to open the persona selector
-   - Choose up to 6 council members from Cybersecurity and Tech categories
-   - Select your preferred Chairman (integrated within each category)
-   - Click "Reset to Default" to restore default configuration
-3. **View persona details** (optional):
-   - Click the "Members" tab to explore all available personas
-   - View their personalities, roles, and system prompts
-   - Switch between Cybersecurity and Tech categories
-   - Chairmen appear within their respective categories with orange accent color
-4. **Start a debate** (optional):
-   - Click "⚔️ Debate Mode" in the sidebar
-   - Pick a FOR debater (left/blue) and an AGAINST debater (right/red)
-   - Set number of rounds and optional moderator
-   - Enter a debate topic and watch the arguments unfold
-5. **Ask a question**: Type your query in the chat interface
-6. **Explore responses**:
-   - **Stage 1**: View individual responses from each council member
-   - **Stage 2**: See peer evaluations and aggregate rankings
-   - **Stage 3**: Read the Chairman's synthesized final answer
+1. **Council Mode**: Open the app, optionally configure your council via the settings panel, type a question, and explore the three-stage deliberation
+2. **Council Members**: Click "Council Members" in the sidebar to browse personas, their roles, and full system prompts
+3. **Debate Mode**: Click "Debate Mode" in the sidebar, pick a FOR and AGAINST debater, set rounds and moderator, enter a topic
+4. **Debate Members**: Click "Debate Members" to browse the mythological debaters and moderator, including their system prompts
+5. **Conversations**: All sessions are saved and accessible from the sidebar
 
-## Features
+## Customization
 
-- **Interactive Chat Interface**: Clean, modern UI similar to ChatGPT
-- **Three-Stage Deliberation**: Individual responses → Peer review → Final synthesis
-- **Debate Arena**: FOR vs AGAINST structured debates with mythological personas
-- **Side-by-Side Debate View**: Blue (FOR) and red (AGAINST) columns with real-time streaming
-- **Persona System**: Rich personalities with unique perspectives and response protocols
-- **Council Customization**: Select and configure council members via UI
-- **Members Explorer**: Browse all personas, view their prompts and personalities
-- **Conversation History**: Navigate through previous conversations in the sidebar
-- **Markdown Rendering**: Formatted responses with proper syntax highlighting
-- **Anonymized Peer Review**: Unbiased evaluation process
-- **Aggregate Rankings**: See how all council members ranked each response
-- **Transparency**: View raw evaluations and extracted rankings
+All personas are defined in `backend/personas.py`:
 
-## Troubleshooting
+- **`CYBERSECURITY_PERSONAS`** / **`TECH_PERSONAS`** — Council members
+- **`CHAIRMAN_OPTIONS`** — Council chairmen (Strategic Principal, Technical Director)
+- **`DEBATE_PERSONAS`** — Debate debaters (Apollo, Prometheus, Athena, Loki)
+- **`DEBATE_MODERATORS`** — Debate moderators (Themis)
 
-### Port Already in Use
-If you get an error about port 8001 or 5173 being in use, you can either:
-- Stop the other application using that port
-- Modify the ports in `backend/main.py` (for backend) and `frontend/vite.config.js` (for frontend)
+Each persona has a `name`, `model` (OpenRouter model ID), and `system_message` defining their behavior. Council members also have `personality` and `category` fields. Debate personas have `title` and `style` fields.
 
-### OpenRouter API Key Issues
-- Ensure your `.env` file is in the project root
-- Verify your API key starts with `sk-or-v1-`
-- Check your OpenRouter account has sufficient credits at [openrouter.ai](https://openrouter.ai/)
+You can also configure your council from the web interface using the persona selector.
 
-### Module Import Errors
-- Always run the backend from the project root: `uv run python -m backend.main`
-- Never run it from within the backend directory
-
-### CORS Errors
-If you see CORS errors in the browser console, verify the frontend URL in `backend/main.py` matches your actual frontend URL (default: http://localhost:5173)
+---
 
 ## Technical Details
 
-- **Backend**: Python with FastAPI, async/parallel model queries
-- **Frontend**: React with Vite, ReactMarkdown for rendering
-- **API**: OpenRouter for multi-model access
-- **Storage**: JSON-based conversation storage in `data/conversations/`
-- **Port Configuration**: Backend on 8001, Frontend on 5173
+| Component | Technology |
+|---|---|
+| Backend | Python, FastAPI, async/parallel queries |
+| Frontend | React, Vite, ReactMarkdown |
+| LLM API | OpenRouter (multi-model) |
+| Storage | JSON files in `data/conversations/` |
+| Ports | Backend 8001, Frontend 5173 |
 
 For detailed technical documentation, see [CLAUDE.md](CLAUDE.md).
+
+## Troubleshooting
+
+- **Port in use**: Stop the conflicting process, or change ports in `backend/main.py` and `frontend/vite.config.js`
+- **API key issues**: Ensure `.env` is in the project root with a key starting `sk-or-v1-`, and check your OpenRouter credit balance
+- **Import errors**: Always run the backend from the project root: `uv run python -m backend.main`
+- **CORS errors**: Verify the frontend URL in `backend/main.py` matches your actual frontend address (default: http://localhost:5173)
 
 ---
 

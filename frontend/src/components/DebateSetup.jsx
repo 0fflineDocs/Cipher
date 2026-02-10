@@ -4,11 +4,11 @@ import './DebateSetup.css';
 const API_BASE = 'http://localhost:8001';
 
 export default function DebateSetup({
-  chairmen,
   onStartDebate,
   onBack,
 }) {
   const [debatePersonas, setDebatePersonas] = useState([]);
+  const [debateModerators, setDebateModerators] = useState([]);
   const [forPersona, setForPersona] = useState(null);
   const [againstPersona, setAgainstPersona] = useState(null);
   const [moderator, setModerator] = useState(null);
@@ -19,6 +19,7 @@ export default function DebateSetup({
       .then((res) => res.json())
       .then((data) => {
         setDebatePersonas(data.debaters || []);
+        setDebateModerators(data.moderators || []);
       })
       .catch(console.error);
   }, []);
@@ -59,7 +60,6 @@ export default function DebateSetup({
         }}
       >
         <div className="persona-card-top">
-          <span className="persona-icon-debate">{persona.icon}</span>
           <div>
             <div className="persona-name-debate">{persona.name}</div>
             <div className="persona-title-debate">{persona.title}</div>
@@ -76,7 +76,7 @@ export default function DebateSetup({
         <button className="back-btn" onClick={onBack}>
           ← Back
         </button>
-        <h2>⚔️ Configure Debate</h2>
+        <h2>Configure Debate</h2>
       </div>
 
       <div className="debaters-container">
@@ -124,13 +124,14 @@ export default function DebateSetup({
             >
               None
             </div>
-            {(chairmen || []).map((c) => (
+            {debateModerators.map((m) => (
               <div
-                key={c.name}
-                className={`moderator-option ${moderator === c.name ? 'selected' : ''}`}
-                onClick={() => setModerator(c.name)}
+                key={m.id}
+                className={`moderator-option ${moderator === m.id ? 'selected' : ''}`}
+                onClick={() => setModerator(m.id)}
               >
-                <div className="moderator-name">{c.name}</div>
+                <div className="moderator-name">{m.name}</div>
+                <div className="moderator-title">{m.title}</div>
               </div>
             ))}
           </div>
@@ -142,7 +143,7 @@ export default function DebateSetup({
         disabled={!canStart}
         onClick={handleStart}
       >
-        ⚔️ Start Debate
+        Start Debate
       </button>
     </div>
   );

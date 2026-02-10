@@ -57,13 +57,10 @@ export default function DebateView({
   const renderStatement = (statement, phaseLabel) => {
     const color = getSideColor(statement);
     const sideLabel = getSideLabel(statement);
-    const icon = statement.icon || '';
-
     return (
       <div key={`${phaseLabel}-${statement.persona}`} className={`debate-statement ${color}`}>
         <div className={`statement-header ${color}`}>
           <div className="statement-header-left">
-            {icon && <span className="statement-icon">{icon}</span>}
             <span className="statement-persona">{statement.persona}</span>
             {statement.title && (
               <span className="statement-title">{statement.title}</span>
@@ -103,7 +100,7 @@ export default function DebateView({
     return (
       <div className="verdict-card">
         <div className="verdict-header">
-          <span className="verdict-icon">⚖️</span>
+          <span className="verdict-label-icon">Verdict</span>
           <span className="verdict-label">Moderator Verdict</span>
           <span className="verdict-moderator">{verdict.moderator}</span>
         </div>
@@ -205,7 +202,7 @@ export default function DebateView({
   return (
     <div className="debate-view">
       <div className="debate-header">
-        <h2>⚔️ Debate Arena</h2>
+        <h2>Debate Arena</h2>
         {forLabel && againstLabel && (
           <div className="debate-matchup">
             <span className="matchup-debater blue">{forLabel}</span>

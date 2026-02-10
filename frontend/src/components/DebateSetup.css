@@ -148,10 +148,6 @@
   margin-bottom: 6px;
 }
 
-.persona-icon-debate {
-  font-size: 22px;
-}
-
 .persona-name-debate {
   font-weight: 600;
   font-size: 14px;
@@ -262,6 +258,12 @@
   font-weight: 600;
   font-size: 14px;
   color: inherit;
+}
+
+.moderator-title {
+  font-size: 11px;
+  color: #A0A0A0;
+  margin-top: 2px;
 }
 
 /* Start button */

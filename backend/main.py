@@ -12,7 +12,7 @@ import asyncio
 from . import storage
 from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
 from .debate import collect_opening_statements, collect_round_responses, generate_verdict
-from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name, get_all_debate_personas, get_debate_persona_by_id
+from .personas import get_personas_by_category, get_all_chairmen, get_persona_by_name, get_chairman_by_name, get_all_debate_personas, get_debate_persona_by_id, get_all_debate_moderators, get_debate_moderator_by_id
 
 app = FastAPI(title="Cipher API")
 
@@ -100,10 +100,10 @@ async def get_personas():
 
 @app.get("/api/debate-personas")
 async def get_debate_personas():
-    """Get all available debate personas."""
+    """Get all available debate personas and moderators."""
     return {
         "debaters": get_all_debate_personas(),
-        "moderators": get_all_chairmen()
+        "moderators": get_all_debate_moderators()
     }
 
 
@@ -296,7 +296,7 @@ async def send_message_stream(conversation_id: str, request: SendMessageRequest)
             verdict = None
             if moderator_name:
                 yield f"data: {json.dumps({'type': 'verdict_start'})}\n\n"
-                moderator = get_chairman_by_name(moderator_name)
+                moderator = get_debate_moderator_by_id(moderator_name)
                 if moderator:
                     verdict = await generate_verdict(request.content, openings, rounds, moderator)
                     yield f"data: {json.dumps({'type': 'verdict_complete', 'data': verdict})}\n\n"
