@@ -118,6 +118,29 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.conv-tag {
+  flex-shrink: 0;
+  font-size: 0.65em;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.conv-tag.council {
+  color: #A855F7;
+  border: 1px solid #A855F733;
+}
+
+.conv-tag.debate {
+  color: #F59E0B;
+  border: 1px solid #F59E0B33;
 }
 
 .conversation-date {

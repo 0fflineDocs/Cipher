@@ -94,11 +94,19 @@ def list_conversations() -> List[Dict[str, Any]]:
             with open(path, 'r') as f:
                 data = json.load(f)
                 # Return metadata only
+                # Detect mode from messages
+                messages = data.get("messages", [])
+                mode = "council"
+                for msg in messages:
+                    if msg.get("mode") == "debate":
+                        mode = "debate"
+                        break
                 conversations.append({
                     "id": data["id"],
                     "created_at": data["created_at"],
                     "title": data.get("title", "New Conversation"),
-                    "message_count": len(data["messages"])
+                    "message_count": len(messages),
+                    "mode": mode
                 })
 
     # Sort by creation time, newest first

@@ -13,6 +13,7 @@ export default function DebateSetup({
   const [againstPersona, setAgainstPersona] = useState(null);
   const [moderator, setModerator] = useState(null);
   const [numRounds, setNumRounds] = useState(3);
+  const [topic, setTopic] = useState('');
 
   useEffect(() => {
     fetch(`${API_BASE}/api/debate-personas`)
@@ -24,7 +25,7 @@ export default function DebateSetup({
       .catch(console.error);
   }, []);
 
-  const canStart = forPersona && againstPersona && forPersona !== againstPersona;
+  const canStart = forPersona && againstPersona && forPersona !== againstPersona && topic.trim();
 
   const handleStart = () => {
     onStartDebate({
@@ -32,6 +33,7 @@ export default function DebateSetup({
       debaterAgainst: againstPersona,
       moderator,
       numRounds,
+      topic: topic.trim(),
     });
   };
 
@@ -71,6 +73,7 @@ export default function DebateSetup({
   };
 
   return (
+    <div className="debate-setup-wrapper">
     <div className="debate-setup">
       <div className="debate-setup-header">
         <button className="back-btn" onClick={onBack}>
@@ -79,63 +82,70 @@ export default function DebateSetup({
         <h2>Configure Debate</h2>
       </div>
 
-      <div className="debaters-container">
-        <div className="debater-column for-column">
-          <div className="side-badge for">FOR</div>
-          <p className="side-desc">Defends the position</p>
-          <div className="persona-list-debate">
+      <div className="debate-setup-panel">
+        <div className="debate-pick-section">
+          <h4><span className="side-label for">FOR</span> — Defends the position</h4>
+          <div className="debate-persona-grid">
             {debatePersonas.map((p) => renderPersonaCard(p, 'for'))}
           </div>
         </div>
 
-        <div className="vs-divider">VS</div>
-
-        <div className="debater-column against-column">
-          <div className="side-badge against">AGAINST</div>
-          <p className="side-desc">Challenges the position</p>
-          <div className="persona-list-debate">
+        <div className="debate-pick-section">
+          <h4><span className="side-label against">AGAINST</span> — Challenges the position</h4>
+          <div className="debate-persona-grid">
             {debatePersonas.map((p) => renderPersonaCard(p, 'against'))}
+          </div>
+        </div>
+
+        <div className="debate-options">
+          <div className="option-group">
+            <label>Rounds</label>
+            <div className="rounds-selector">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  className={`round-btn ${numRounds === n ? 'active' : ''}`}
+                  onClick={() => setNumRounds(n)}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="option-group">
+            <label>Moderator (optional)</label>
+            <div className="moderator-select">
+              <div
+                className={`moderator-option ${moderator === null ? 'selected' : ''}`}
+                onClick={() => setModerator(null)}
+              >
+                None
+              </div>
+              {debateModerators.map((m) => (
+                <div
+                  key={m.id}
+                  className={`moderator-option ${moderator === m.id ? 'selected' : ''}`}
+                  onClick={() => setModerator(m.id)}
+                >
+                  <div className="moderator-name">{m.name}</div>
+                  <div className="moderator-title">{m.title}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="debate-options">
-        <div className="option-group">
-          <label>Rounds</label>
-          <div className="rounds-selector">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                key={n}
-                className={`round-btn ${numRounds === n ? 'active' : ''}`}
-                onClick={() => setNumRounds(n)}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="option-group">
-          <label>Moderator (optional)</label>
-          <div className="moderator-select">
-            <div
-              className={`moderator-option ${moderator === null ? 'selected' : ''}`}
-              onClick={() => setModerator(null)}
-            >
-              None
-            </div>
-            {debateModerators.map((m) => (
-              <div
-                key={m.id}
-                className={`moderator-option ${moderator === m.id ? 'selected' : ''}`}
-                onClick={() => setModerator(m.id)}
-              >
-                <div className="moderator-name">{m.name}</div>
-                <div className="moderator-title">{m.title}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="debate-topic-section">
+        <label>Debate Topic</label>
+        <textarea
+          className="debate-topic-input"
+          placeholder="Enter a topic or statement to debate..."
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          rows={3}
+        />
       </div>
 
       <button
@@ -145,6 +155,7 @@ export default function DebateSetup({
       >
         Start Debate
       </button>
+    </div>
     </div>
   );
 }

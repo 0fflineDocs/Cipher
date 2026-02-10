@@ -60,6 +60,9 @@ export default function Sidebar({
             >
               <div className="conversation-title">
                 {conv.title || 'New Conversation'}
+                <span className={`conv-tag ${conv.mode === 'debate' ? 'debate' : 'council'}`}>
+                  {conv.mode === 'debate' ? 'Debate' : 'Council'}
+                </span>
               </div>
               <div className="conversation-meta">
                 {conv.message_count} messages

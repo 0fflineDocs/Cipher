@@ -118,15 +118,26 @@ function App() {
       ]);
       setCurrentConversationId(newConv.id);
       setCurrentConversation(newConv);
-      setDebateConfig(config);
+      const { topic, ...debateCfg } = config;
+      setDebateConfig(debateCfg);
       setCurrentView('debate');
+
+      // Automatically send the topic as the first message
+      if (topic) {
+        // Small delay to let state settle before sending
+        setTimeout(() => {
+          handleDebateMessage(topic, newConv.id, debateCfg);
+        }, 100);
+      }
     } catch (error) {
       console.error('Failed to create debate conversation:', error);
     }
   };
 
-  const handleDebateMessage = async (content) => {
-    if (!currentConversationId || !debateConfig) return;
+  const handleDebateMessage = async (content, convIdOverride, configOverride) => {
+    const convId = convIdOverride || currentConversationId;
+    const config = configOverride || debateConfig;
+    if (!convId || !config) return;
 
     setIsLoading(true);
 
@@ -141,7 +152,7 @@ function App() {
 
     try {
       await api.sendMessageStream(
-        currentConversationId,
+        convId,
         content,
         (eventType, event) => {
           switch (eventType) {
@@ -185,7 +196,7 @@ function App() {
               break;
 
             case 'complete':
-              loadConversation(currentConversationId);
+              loadConversation(convId);
               setDebateState(null);
               setIsLoading(false);
               loadConversations();
@@ -204,10 +215,10 @@ function App() {
         null,
         null,
         {
-          debaterFor: debateConfig.debaterFor,
-          debaterAgainst: debateConfig.debaterAgainst,
-          moderator: debateConfig.moderator,
-          numRounds: debateConfig.numRounds || 3,
+          debaterFor: config.debaterFor,
+          debaterAgainst: config.debaterAgainst,
+          moderator: config.moderator,
+          numRounds: config.numRounds || 3,
         }
       );
     } catch (error) {

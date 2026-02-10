@@ -49,6 +49,7 @@ class ConversationMetadata(BaseModel):
     created_at: str
     title: str
     message_count: int
+    mode: str = "council"
 
 
 class Conversation(BaseModel):
