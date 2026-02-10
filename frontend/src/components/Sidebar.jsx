@@ -15,27 +15,35 @@ export default function Sidebar({
     <div className="sidebar">
       <div className="sidebar-header">
         <h1 onClick={onNewConversation} style={{ cursor: 'pointer' }}>Cipher</h1>
-        <button className="new-conversation-btn" onClick={onNewConversation}>
-          + New Conversation
-        </button>
-        <button 
-          className={`view-debate-btn ${currentView === 'debate-setup' || currentView === 'debate' ? 'active' : ''}`}
-          onClick={onViewDebateSetup}
-        >
-          Debate Mode
-        </button>
-        <button 
-          className={`view-members-btn ${currentView === 'members' ? 'active' : ''}`}
-          onClick={onViewMembers}
-        >
-          Council Members
-        </button>
-        <button 
-          className={`view-debate-members-btn ${currentView === 'debate-members' ? 'active' : ''}`}
-          onClick={onViewDebateMembers}
-        >
-          Debate Members
-        </button>
+
+        <div className="sidebar-section">
+          <div className="sidebar-section-label">Council</div>
+          <button className="sidebar-btn" onClick={onNewConversation}>
+            + New Conversation
+          </button>
+          <button 
+            className={`sidebar-btn ${currentView === 'members' ? 'active accent-green' : ''}`}
+            onClick={onViewMembers}
+          >
+            Members
+          </button>
+        </div>
+
+        <div className="sidebar-section">
+          <div className="sidebar-section-label">Debate</div>
+          <button 
+            className={`sidebar-btn ${currentView === 'debate-setup' || currentView === 'debate' ? 'active accent-amber' : ''}`}
+            onClick={onViewDebateSetup}
+          >
+            + New Debate
+          </button>
+          <button 
+            className={`sidebar-btn ${currentView === 'debate-members' ? 'active accent-amber' : ''}`}
+            onClick={onViewDebateMembers}
+          >
+            Members
+          </button>
+        </div>
       </div>
 
       <div className="conversation-list">

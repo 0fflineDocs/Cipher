@@ -21,28 +21,29 @@
   letter-spacing: -0.5px;
 }
 
-.new-conversation-btn {
-  width: 100%;
-  padding: 12px 16px;
-  background: transparent;
-  border: 1px solid #2A2A2A;
-  border-radius: 6px;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 0.875em;
-  font-weight: 500;
-  letter-spacing: 0;
-  transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif;
-  margin-bottom: 8px;
+/* Grouped sections */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
 }
 
-.new-conversation-btn:hover {
-  background: #0A0A0A;
-  border-color: #A855F7;
+.sidebar-section:last-child {
+  margin-bottom: 0;
 }
 
-.view-members-btn {
+.sidebar-section-label {
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #707070;
+  padding: 0 2px 4px;
+}
+
+/* Unified button style */
+.sidebar-btn {
   width: 100%;
   padding: 12px 16px;
   background: transparent;
@@ -61,74 +62,18 @@
   gap: 8px;
 }
 
-.view-members-btn:hover {
+.sidebar-btn:hover {
   background: #0A0A0A;
-  border-color: #10B981;
+  border-color: #A855F7;
 }
 
-.view-members-btn.active {
+.sidebar-btn.active.accent-green {
   background: #0A0A0A;
   border-color: #10B981;
   color: #10B981;
 }
 
-.view-debate-members-btn {
-  width: 100%;
-  padding: 12px 16px;
-  background: transparent;
-  border: 1px solid #2A2A2A;
-  border-radius: 6px;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 0.875em;
-  font-weight: 500;
-  letter-spacing: 0;
-  transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.view-debate-members-btn:hover {
-  background: #0A0A0A;
-  border-color: #F59E0B;
-}
-
-.view-debate-members-btn.active {
-  background: #0A0A0A;
-  border-color: #F59E0B;
-  color: #F59E0B;
-}
-
-.view-debate-btn {
-  width: 100%;
-  padding: 12px 16px;
-  background: transparent;
-  border: 1px solid #2A2A2A;
-  border-radius: 6px;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 0.875em;
-  font-weight: 500;
-  letter-spacing: 0;
-  transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.view-debate-btn:hover {
-  background: #0A0A0A;
-  border-color: #F59E0B;
-}
-
-.view-debate-btn.active {
+.sidebar-btn.active.accent-amber {
   background: #0A0A0A;
   border-color: #F59E0B;
   color: #F59E0B;

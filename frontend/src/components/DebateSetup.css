@@ -1,7 +1,7 @@
 .debate-setup {
   max-width: 900px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 32px 24px 64px;
 }
 
 .debate-setup-header {
@@ -40,7 +40,7 @@
   grid-template-columns: 1fr auto 1fr;
   gap: 16px;
   align-items: start;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .vs-divider {
@@ -170,8 +170,8 @@
 /* Debate options row */
 .debate-options {
   display: flex;
-  gap: 32px;
-  margin-bottom: 32px;
+  gap: 48px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
