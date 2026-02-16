@@ -1,6 +1,6 @@
 # Cipher - Multi-LLM Council & Debate Arena
 
-<img width="728" height="527" alt="image" src="https://github.com/user-attachments/assets/747988d1-d2c9-4cf9-acbc-f0de44c44406" />
+<img width="2752" height="1536" alt="cipher" src="https://github.com/user-attachments/assets/b3cc2d28-c17c-4f88-9258-0b1e256d9932" />
 
 ## Overview
 
