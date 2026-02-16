@@ -53,26 +53,26 @@ Organized into two categories:
 
 1. **Pick Sides** — Choose one debater for the **FOR** position (left, blue) and one for **AGAINST** (right, red)
 2. **Set Rounds** — Configure 1–5 rounds of back-and-forth argumentation
-3. **Select Moderator** — Optionally select Themis to deliver a structured verdict
+3. **Select Moderator** — Optionally select Arbiter to deliver a structured verdict
 4. **Enter a Topic** — Pose any debatable question or statement
 5. **Watch the Debate** — Opening statements stream in side-by-side, followed by rounds where each debater rebuts their opponent, ending with the moderator's verdict
 
 ### Debate Personas
 
-Four mythological debaters, each with a distinct rhetorical style:
+Four professional cybersecurity debaters, each with a distinct rhetorical style:
 
 | Persona | Title | Style | Model |
 |---|---|---|---|
-| Apollo | God of Reason | Logical — evidence, data, formal reasoning | openai/gpt-4.1 |
-| Prometheus | Titan of Conviction | Passionate — emotional appeals, moral framing, urgency | google/gemini-2.5-pro |
-| Athena | Goddess of Strategy | Pragmatist — feasibility, cost-benefit, implementation | anthropic/claude-sonnet-4 |
-| Loki | The Trickster | Devil's Advocate — contrarian, Socratic questioning, paradoxes | x-ai/grok-3 |
+| Vector | Principal Analyst | Evidence-Based — data, threat intel, formal reasoning | openai/gpt-4.1 |
+| Beacon | Threat Evangelist | Passionate Advocate — urgency, impact narratives, risk framing | google/gemini-2.5-pro |
+| Bastion | Defense Strategist | Pragmatist — feasibility, cost-benefit, implementation | anthropic/claude-sonnet-4 |
+| Phantom | Red Team Operator | Devil's Advocate — adversarial thinking, assumption testing | x-ai/grok-3 |
 
 ### Moderator
 
 | Persona | Title | Role | Model |
 |---|---|---|---|
-| Themis | Titan of Justice | Impartial judge — structured verdicts, evidence-based rulings | google/gemini-2.5-pro |
+| Arbiter | Chief Adjudicator | Impartial judge — structured verdicts, evidence-based rulings | google/gemini-2.5-pro |
 
 ---
 

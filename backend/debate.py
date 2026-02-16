@@ -1,7 +1,7 @@
 """Debate mode logic for Cipher.
 
 Each debate has two sides: FOR and AGAINST.
-Debaters are mythological personas with distinct rhetorical styles.
+Debaters are professional cybersecurity personas with distinct rhetorical styles.
 """
 
 import asyncio
